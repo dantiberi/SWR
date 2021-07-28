@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿//For POC Purposes
+
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace SWR_server.Controllers
 {
     [Route("api/[controller]")]
@@ -51,6 +52,7 @@ namespace SWR_server.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            System.Diagnostics.Debug.WriteLine(value);
         }
 
         // PUT api/<FetcherController>/5
@@ -63,6 +65,33 @@ namespace SWR_server.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        //Testing Methods
+
+        [HttpGet()]
+        [Route("TestController/{str}")]
+        public string Get(string str)
+        {
+            if (!Response.Headers.ContainsKey("Access-Control-Allow-Origin"))
+                Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
+            System.Diagnostics.Debug.WriteLine("!!!!!: " + Request.ContentLength);
+
+            return str;
+        }
+
+        [HttpPost()]
+        [Route("AmazonProduct/")]
+        public string GetAmazonProductImage([FromBody] AmzProduct amzProduct)
+        {
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
+            AmzScraper amz = new AmzScraper(amzProduct.url);
+
+            System.Diagnostics.Debug.WriteLine(amz.getProductImgUrl());
+
+            return "{\"" + amz.getProductImgUrl() + "\" : \"DONE\" }";
         }
     }
 }

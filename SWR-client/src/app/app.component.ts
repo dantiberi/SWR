@@ -11,8 +11,10 @@ export class AppComponent {
 
   constructor(fetcherService: FetcherService){
     fetcherService.get("https://localhost:44363/api/Fetcher").subscribe(response => {
-      console.log("RESPONSE RECIEVED! :)");
+      //console.log("RESPONSE RECIEVED! :)");
       console.log(response);
     });
+
+    
   }
 }
