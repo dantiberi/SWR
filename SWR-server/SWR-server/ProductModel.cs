@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace SWR_server
 {
-    public class AmzProduct
+    public class ProductModel
     {
         public String url { get; set; }
         public String name { get; set; }
         public double price { get; set; }
+        public String imgUrl { get; set; }
     }
 }

@@ -81,17 +81,17 @@ namespace SWR_server.Controllers
             return str;
         }
 
-        [HttpPost()]
-        [Route("AmazonProduct/")]
-        public string GetAmazonProductImage([FromBody] AmzProduct amzProduct)
-        {
-            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+        //[HttpPost()]
+        //[Route("AmazonProduct/")]
+        //public string GetAmazonProductImage([FromBody] AmzProductModel amzProduct)
+        //{
+        //    Response.Headers.Add("Access-Control-Allow-Origin", "*");
 
-            AmzScraper amz = new AmzScraper(amzProduct.url);
+        //    AmzScraper amz = new AmzScraper(amzProduct.url);
 
-            System.Diagnostics.Debug.WriteLine(amz.getProductImgUrl());
+        //    System.Diagnostics.Debug.WriteLine(amz.getProductImgUrl());
 
-            return "{\"" + amz.getProductImgUrl() + "\" : \"DONE\" }";
-        }
+        //    return "{\"" + amz.getProductImgUrl() + "\" : \"DONE\" }";
+        //}
     }
 }

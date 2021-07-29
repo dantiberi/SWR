@@ -12,11 +12,12 @@ namespace SWR_server
 {
     public class Program
     {
+        public static DB db;
         public static void Main(string[] args)
         {
             Debug.WriteLine("START");
 
-            DB db = new DB();
+            db = new DB();
 
             CreateHostBuilder(args).Build().Run();
         }

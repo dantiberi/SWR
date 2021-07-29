@@ -11,9 +11,9 @@ namespace SWR_server
     {
         public static string dbname = "ProductDatabase.sqlite";
         public Boolean debugMode = true;//If true, will clear and create new db each run. 
+        public static SQLiteConnection conn;
         public DB()
-        {
-            SQLiteConnection conn;
+        {       
             if (!doesFileExist(dbname) || debugMode)
             {
                 createDBFile(dbname);
@@ -25,11 +25,7 @@ namespace SWR_server
             }
             createTables(conn);
 
-            insertTestProduct(conn);
-            insertTestProduct(conn);
-            insertTestProduct(conn);
-
-            printProductTable(conn);
+            //printProductTable(conn);
         }
         //static void Main(string[] args)
         //{
@@ -40,12 +36,17 @@ namespace SWR_server
         //    ReadData(sqlite_conn);
         //}
 
-        public Boolean doesFileExist(string s)
+        public static void openDbConnection()
+        {
+            conn.Open();
+        }
+
+        private Boolean doesFileExist(string s)
         {
             return File.Exists(s);
         }
 
-        public void createDBFile(string fileName)
+        private void createDBFile(string fileName)
         {
             //print("DB FILE " + fileName + " CREATED");
             SQLiteConnection.CreateFile(fileName);
@@ -66,7 +67,7 @@ namespace SWR_server
             return sqlite_conn;
         }
 
-        public void createTables(SQLiteConnection conn)
+        private void createTables(SQLiteConnection conn)
         {
             SQLiteCommand sqlite_cmd;
 
@@ -75,7 +76,8 @@ namespace SWR_server
             p_id INTEGER PRIMARY KEY,
             name VARCHAR(30),
             url VARCHAR(1000) NOT NULL,
-            price DOUBLE
+            price DOUBLE,
+            img_url VARCHAR(1000)
             );
             ";
             sqlite_cmd = conn.CreateCommand();
@@ -102,9 +104,19 @@ namespace SWR_server
             BEGIN
                 INSERT INTO price_history (p_id, price, date) 
                 VALUES
-                (NEW.p_id, -1.00, DATE('now'));
+                (NEW.p_id, NEW.price, DATE('now'));
             END;
             ";
+            sqlite_cmd = conn.CreateCommand();
+            sqlite_cmd.CommandText = Createsql;
+            sqlite_cmd.ExecuteNonQuery();
+        }
+
+        public void addProduct(SQLiteConnection conn, string url, string name, double price, string imgUrl)
+        {
+            SQLiteCommand sqlite_cmd;
+            string Createsql = "INSERT INTO product VALUES(null, '" + name +"', '" + url +"', " + price + ", '" + imgUrl + "')";
+            //print(Createsql);
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
@@ -113,7 +125,7 @@ namespace SWR_server
         public void insertTestProduct(SQLiteConnection conn)
         {
             SQLiteCommand sqlite_cmd;
-            string Createsql = "INSERT INTO product VALUES(null, 'Nintendo 64', 'google.com', 97.35)";
+            string Createsql = "INSERT INTO product VALUES(null, 'Nintendo 64', 'google.com', 97.35, null)";
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
@@ -163,7 +175,7 @@ namespace SWR_server
             conn.Close();
         }
 
-        public static void print(string s)
+        private static void print(string s)
         {
             System.Diagnostics.Debug.WriteLine("DB OUTPUT: " + s);
         }
