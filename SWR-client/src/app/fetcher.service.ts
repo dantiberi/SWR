@@ -23,4 +23,8 @@ export class FetcherService {
       (error) => console.log(error),
     );
   }
+
+  public getProducts() {
+
+  }
 }
