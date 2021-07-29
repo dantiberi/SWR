@@ -10,16 +10,26 @@ namespace SWR_server
     public class DB
     {
         public static string dbname = "ProductDatabase.sqlite";
+        public Boolean debugMode = true;//If true, will clear and create new db each run. 
         public DB()
         {
-            if (!doesFileExist(dbname))
+            SQLiteConnection conn;
+            if (!doesFileExist(dbname) || debugMode)
             {
                 createDBFile(dbname);
+                conn = connect(dbname);
             }
             else
             {
-                connect(dbname);
+                conn = connect(dbname);
             }
+            createTables(conn);
+
+            insertTestProduct(conn);
+            insertTestProduct(conn);
+            insertTestProduct(conn);
+
+            printProductTable(conn);
         }
         //static void Main(string[] args)
         //{
@@ -37,7 +47,7 @@ namespace SWR_server
 
         public void createDBFile(string fileName)
         {
-            print("DB FILE " + fileName + " CREATED");
+            //print("DB FILE " + fileName + " CREATED");
             SQLiteConnection.CreateFile(fileName);
         }
 
@@ -56,16 +66,79 @@ namespace SWR_server
             return sqlite_conn;
         }
 
-        static void createTables(SQLiteConnection conn)
+        public void createTables(SQLiteConnection conn)
         {
             SQLiteCommand sqlite_cmd;
-            string Createsql = "CREATE ...";
+
+            //product Table
+            string Createsql = @"CREATE TABLE product(
+            p_id INTEGER PRIMARY KEY,
+            name VARCHAR(30),
+            url VARCHAR(1000) NOT NULL,
+            price DOUBLE
+            );
+            ";
+            sqlite_cmd = conn.CreateCommand();
+            sqlite_cmd.CommandText = Createsql;
+            sqlite_cmd.ExecuteNonQuery();
+
+            //price_history Table
+            Createsql = @"CREATE TABLE price_history(
+            id INTEGER PRIMARY KEY,
+            p_id INTEGER,
+            price DOUBLE,
+            date DATE
+            );
+            ";
+            sqlite_cmd = conn.CreateCommand();
+            sqlite_cmd.CommandText = Createsql;
+            sqlite_cmd.ExecuteNonQuery();
+
+            //Triggers
+
+            //When new product added, add initial entry to price_history table.
+            Createsql = @"CREATE TRIGGER link_price_history 
+                AFTER INSERT ON product
+            BEGIN
+                INSERT INTO price_history (p_id, price, date) 
+                VALUES
+                (NEW.p_id, -1.00, DATE('now'));
+            END;
+            ";
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
         }
 
-        static void insertData(SQLiteConnection conn)
+        public void insertTestProduct(SQLiteConnection conn)
+        {
+            SQLiteCommand sqlite_cmd;
+            string Createsql = "INSERT INTO product VALUES(null, 'Nintendo 64', 'google.com', 97.35)";
+            sqlite_cmd = conn.CreateCommand();
+            sqlite_cmd.CommandText = Createsql;
+            sqlite_cmd.ExecuteNonQuery();
+        }
+        public void printProductTable(SQLiteConnection conn)
+        {
+            SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = conn.CreateCommand();
+            sqlite_cmd.CommandText = "SELECT * FROM product";
+
+            sqlite_datareader = sqlite_cmd.ExecuteReader();
+            while (sqlite_datareader.Read())
+            {
+                string row = "| ";
+                for (int i = 0; i < sqlite_datareader.GetValues().Count; i++)
+                {
+                    row += sqlite_datareader.GetValue(i).ToString() + " | ";
+                }
+                print(row);
+            }
+            conn.Close();
+        }
+
+        public void insertData(SQLiteConnection conn)
         {
             SQLiteCommand sqlite_cmd;
             string Createsql = "INSERT INTO ...";
@@ -74,7 +147,7 @@ namespace SWR_server
             sqlite_cmd.ExecuteNonQuery();
         }
 
-        static void readData(SQLiteConnection conn)
+        public void readData(SQLiteConnection conn)
         {
             SQLiteDataReader sqlite_datareader;
             SQLiteCommand sqlite_cmd;
@@ -85,14 +158,14 @@ namespace SWR_server
             while (sqlite_datareader.Read())
             {
                 string myreader = sqlite_datareader.GetString(0);
-                Console.WriteLine(myreader);
+                print(myreader);
             }
             conn.Close();
         }
 
         public static void print(string s)
         {
-            System.Diagnostics.Debug.WriteLine("OUTPUT: " + s);
+            System.Diagnostics.Debug.WriteLine("DB OUTPUT: " + s);
         }
     }
 }
