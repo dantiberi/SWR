@@ -17,15 +17,22 @@ namespace SWR_server.Controllers
         public string storeAmazonProduct([FromBody] ProductModel amzProduct)
         {
             AmzScraper amz = new AmzScraper(amzProduct.url);
-
-            if(DB.conn.State == 0)//If closed then open
-                DB.openDbConnection();
+            
             Program.db.addProduct(DB.conn, amz.url, amz.name, amz.price, amz.productImg);
 
             Program.db.printProductTable(DB.conn);
 
-            
             return JsonConvert.SerializeObject(amz);
+        }
+
+        /*
+         * Returns the last inserted product.
+         * Useful for add and immediate retrieve functionality.
+         * */
+        [HttpGet]
+        public string LastProduct()
+        {
+            return Program.db.getLastInsertedProductId().ToString();
         }
     }
 }

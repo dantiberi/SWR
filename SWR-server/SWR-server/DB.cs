@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace SWR_server
 {
     public class DB
     {
         public static string dbname = "ProductDatabase.sqlite";
-        public Boolean debugMode = true;//If true, will clear and create new db each run. 
+        public Boolean debugMode = false;//If true, will clear and create new db each run. 
         public static SQLiteConnection conn;
         public DB()
         {       
@@ -18,14 +19,16 @@ namespace SWR_server
             {
                 createDBFile(dbname);
                 conn = connect(dbname);
+                createTables(conn);
             }
             else
             {
                 conn = connect(dbname);
             }
-            createTables(conn);
 
-            //printProductTable(conn);
+            printProductTable(conn);
+            print(getJsonOfProduct(conn, 1));
+            print(getLastInsertedProductId().ToString());
         }
         //static void Main(string[] args)
         //{
@@ -69,6 +72,8 @@ namespace SWR_server
 
         private void createTables(SQLiteConnection conn)
         {
+            if (conn.State == 0)//If closed then open
+                openDbConnection();
             SQLiteCommand sqlite_cmd;
 
             //product Table
@@ -110,28 +115,37 @@ namespace SWR_server
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
+            closeDB(conn);
         }
 
         public void addProduct(SQLiteConnection conn, string url, string name, double price, string imgUrl)
         {
+            if (conn.State == 0)//If closed then open
+                openDbConnection();
             SQLiteCommand sqlite_cmd;
             string Createsql = "INSERT INTO product VALUES(null, '" + name +"', '" + url +"', " + price + ", '" + imgUrl + "')";
             //print(Createsql);
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
+            closeDB(conn);
         }
 
         public void insertTestProduct(SQLiteConnection conn)
         {
+            if (conn.State == 0)//If closed then open
+                openDbConnection();
             SQLiteCommand sqlite_cmd;
             string Createsql = "INSERT INTO product VALUES(null, 'Nintendo 64', 'google.com', 97.35, null)";
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
+            closeDB(conn);
         }
         public void printProductTable(SQLiteConnection conn)
         {
+            if (conn.State == 0)//If closed then open
+                openDbConnection();
             SQLiteDataReader sqlite_datareader;
             SQLiteCommand sqlite_cmd;
             sqlite_cmd = conn.CreateCommand();
@@ -147,20 +161,25 @@ namespace SWR_server
                 }
                 print(row);
             }
-            conn.Close();
+            closeDB(conn);
         }
 
         public void insertData(SQLiteConnection conn)
         {
+            if (conn.State == 0)//If closed then open
+                openDbConnection();
             SQLiteCommand sqlite_cmd;
             string Createsql = "INSERT INTO ...";
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
+            closeDB(conn);
         }
 
         public void readData(SQLiteConnection conn)
         {
+            if (conn.State == 0)//If closed then open
+                openDbConnection();
             SQLiteDataReader sqlite_datareader;
             SQLiteCommand sqlite_cmd;
             sqlite_cmd = conn.CreateCommand();
@@ -172,6 +191,83 @@ namespace SWR_server
                 string myreader = sqlite_datareader.GetString(0);
                 print(myreader);
             }
+            closeDB(conn);
+        }
+
+        public string getJsonOfProduct(SQLiteConnection conn, int id)
+        {
+            if (conn.State == 0)//If closed then open
+                openDbConnection();
+
+            SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = conn.CreateCommand();
+            sqlite_cmd.CommandText = "SELECT * FROM product WHERE p_id=" + id;
+            sqlite_datareader = sqlite_cmd.ExecuteReader();
+            sqlite_datareader.Read();
+
+            ProductModel p = new ProductModel();
+
+            for(int i = 1; i < sqlite_datareader.FieldCount; i++)
+            {
+                switch (sqlite_datareader.GetName(i))
+                {
+                    case "name":
+                        p.name = sqlite_datareader.GetValue(i).ToString();
+                        break;
+                    case "url":
+                        p.url = sqlite_datareader.GetValue(i).ToString();
+                        break;
+                    case "price":
+                        p.price = Double.Parse(sqlite_datareader.GetValue(i).ToString());
+                        break;
+                    case "img_url":
+                        p.imgUrl = sqlite_datareader.GetValue(i).ToString();
+                        break;
+                    default:
+                        print("DB.getJsonOfProduct: UNHANDLED FIELD");
+                        break;
+                }
+            }
+            closeDB(conn);
+            return JsonConvert.SerializeObject(p);  
+        }
+
+        public int getLastInsertedProductId()
+        {
+            if (conn.State == 0)//If closed then open
+                openDbConnection();
+            SQLiteCommand sqlite_cmd = conn.CreateCommand();
+            sqlite_cmd.CommandText = "SELECT last_insert_rowid() as p_id FROM product";
+            int result = int.Parse(sqlite_cmd.ExecuteScalar().ToString());
+
+            if(result == 0)//Could happen if this gets ran when the data was inserted before the conn was closed last.
+            {
+                sqlite_cmd = conn.CreateCommand();
+                sqlite_cmd.CommandText = "SELECT COUNT(*) FROM product";
+                int count = int.Parse(sqlite_cmd.ExecuteScalar().ToString());
+
+                if (count != 0)//If not empty, then return last id;
+                {
+                    sqlite_cmd = conn.CreateCommand();
+                    sqlite_cmd.CommandText = "SELECT max(p_id) FROM product";
+                    int res = int.Parse(sqlite_cmd.ExecuteScalar().ToString());
+                    closeDB(conn);
+                    return res;
+                }
+                else
+                {
+                    closeDB(conn);
+                    return result;
+                }
+                    
+            }
+            closeDB(conn);
+            return result;
+        }
+
+        public static void closeDB(SQLiteConnection conn)
+        {
             conn.Close();
         }
 

@@ -18,7 +18,7 @@ namespace SWR_server
             Debug.WriteLine("START");
 
             db = new DB();
-
+            
             CreateHostBuilder(args).Build().Run();
         }
 
