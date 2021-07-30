@@ -15,16 +15,20 @@ export class FetcherService {
   }
 
   public giveAmazonProduct(product: Product){
-    console.log("BODY:");
-    console.log(JSON.stringify(product));
-    console.log("END OF BODY");
-    this.httpClient.post("https://localhost:44363/api/Fetcher/AmazonProduct", JSON.parse(JSON.stringify(product))).subscribe(
+    // console.log("BODY:");
+    // console.log(JSON.stringify(product));
+    // console.log("END OF BODY");
+    this.httpClient.post("https://localhost:44363/api/Product/AddAmazonProduct", JSON.parse(JSON.stringify(product))).subscribe(
       (response) => console.log(response),
       (error) => console.log(error),
     );
   }
-
-  public getProducts() {
-
+  
+  public getProduct(id: number){
+    //https://localhost:44363/api/Product/GetProduct?id=2
+    this.httpClient.get("https://localhost:44363/api/Product/GetProduct?id="+id).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error),
+    );
   }
 }

@@ -11,5 +11,6 @@ namespace SWR_server
         public String name { get; set; }
         public double price { get; set; }
         public String imgUrl { get; set; }
+        public int id { get; set; }
     }
 }

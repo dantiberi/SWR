@@ -37,9 +37,20 @@ namespace SWR_server.Controllers
          * Useful for add and immediate retrieve functionality.
          * */
         [HttpGet]
+        [Route("LastProduct/")]
         public string LastProduct()
         {
             return Program.db.getLastInsertedProductId().ToString();
+        }
+
+        /*
+         * Returns the product JSON of given p_id.
+         * */
+        [HttpGet]
+        [Route("GetProduct/")]
+        public string getProduct(int id)
+        {
+            return Program.db.getJsonOfProduct(DB.conn, id);
         }
     }
 }

@@ -208,10 +208,11 @@ namespace SWR_server
 
             ProductModel p = new ProductModel();
 
-            for(int i = 1; i < sqlite_datareader.FieldCount; i++)
+            for(int i = 0; i < sqlite_datareader.FieldCount; i++)
             {
+                //print(sqlite_datareader.GetName(i));
                 switch (sqlite_datareader.GetName(i))
-                {
+                {                   
                     case "name":
                         p.name = sqlite_datareader.GetValue(i).ToString();
                         break;
@@ -224,6 +225,9 @@ namespace SWR_server
                     case "img_url":
                         p.imgUrl = sqlite_datareader.GetValue(i).ToString();
                         break;
+                    case "p_id":
+                        p.id = int.Parse(sqlite_datareader.GetValue(i).ToString());
+                        break;
                     default:
                         print("DB.getJsonOfProduct: UNHANDLED FIELD");
                         break;
@@ -232,6 +236,8 @@ namespace SWR_server
             closeDB(conn);
             return JsonConvert.SerializeObject(p);  
         }
+
+        
 
         public int getLastInsertedProductId()
         {
