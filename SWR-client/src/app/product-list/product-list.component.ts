@@ -20,9 +20,27 @@ export class ProductListComponent implements OnInit {
     //console.log(fetcherService.getProduct(2));
     this.fetcherService = fetcherService;
   }
+  
+  public async loadTestProduct(id: number): Promise<void>{
+    var res = this.fetcherService.getProduct(id)
+    ;(await res).subscribe(response =>{
+      var tempString: string = JSON.stringify(response);
+      var pJson =  JSON.parse(tempString);
+      //console.log(pJson);
+      var p: Product = new Product(pJson.url, pJson.name, pJson.price, pJson.imgUrl, pJson.id);
+      this.products = this.products.concat(p);
+      console.log("Num Products: " + this.products.length);
 
-  public loadTestProduct(): void{
-    
+      var cardElement = document.createElement("mat-card");
+      cardElement.setAttribute("id", "product:" + p.id);
+      cardElement.setAttribute("class", "mat-card mat-focus-indicator");
+
+      var imgElement = document.createElement("img");
+      imgElement.setAttribute("src", p.img_url);
+
+      document.getElementById("product-list-wrapper")?.appendChild(cardElement); //? because it could be null
+      document.getElementById("product:" + p.id)?.appendChild(imgElement); //? because it could be null
+    });
   }
 
   ngOnInit(): void{

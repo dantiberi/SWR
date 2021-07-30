@@ -50,6 +50,8 @@ namespace SWR_server.Controllers
         [Route("GetProduct/")]
         public string getProduct(int id)
         {
+            //System.Diagnostics.Debug.WriteLine("!!!!! getProduct CALLED");
+            //System.Diagnostics.Debug.WriteLine(Program.db.getJsonOfProduct(DB.conn, id));
             return Program.db.getJsonOfProduct(DB.conn, id);
         }
     }

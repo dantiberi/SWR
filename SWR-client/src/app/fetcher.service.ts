@@ -23,12 +23,9 @@ export class FetcherService {
       (error) => console.log(error),
     );
   }
-  
-  public getProduct(id: number){
+
+  public async getProduct(id: number): Promise<Observable<any>> {
     //https://localhost:44363/api/Product/GetProduct?id=2
-    this.httpClient.get("https://localhost:44363/api/Product/GetProduct?id="+id).subscribe(
-      (response) => console.log(response),
-      (error) => console.log(error),
-    );
+    return this.httpClient.get("https://localhost:44363/api/Product/GetProduct?id=" + id);
   }
 }
