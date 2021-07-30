@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+/*
+ * Must call start(url) and stop.
+ */
+
 namespace SWR_server
 {
     [JsonObject(MemberSerialization.OptIn)]//Allows us to specify specific properties for Json conversion
@@ -21,17 +25,14 @@ namespace SWR_server
         [JsonProperty]
         public Boolean parseComplete = false;
 
-        public AmzScraper(String url)
-        {
-            this.url = url;
-
-            this.Start();
+        public AmzScraper()
+        {  
         }
 
         public override void Init()
         {
-            //this.LoggingLevel = WebScraper.LogLevel.All; //Can be disabled
-            this.Request(url, Parse);
+            //this.LoggingLevel = WebScraper.LogLevel.All; //Can be disabled      
+            this.Request(this.url, Parse);
         }
 
         public override void Parse(Response response)
@@ -51,6 +52,17 @@ namespace SWR_server
         public String getProductImgUrl()
         {
             return this.productImg;
+        }
+
+        public void stop()
+        {
+            this.Stop();
+        }
+
+        public void start(string url)
+        {
+            this.url = url;
+            this.Start();
         }
     }
 }
