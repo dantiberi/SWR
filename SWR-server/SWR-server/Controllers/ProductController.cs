@@ -40,7 +40,7 @@ namespace SWR_server.Controllers
         [Route("LastProduct/")]
         public string LastProduct()
         {
-            return Program.db.getLastInsertedProductId().ToString();
+            return Program.db.getLastInsertedProductId(DB.conn).ToString();
         }
 
         /*
@@ -53,6 +53,16 @@ namespace SWR_server.Controllers
             //System.Diagnostics.Debug.WriteLine("!!!!! getProduct CALLED");
             //System.Diagnostics.Debug.WriteLine(Program.db.getJsonOfProduct(DB.conn, id));
             return Program.db.getJsonOfProduct(DB.conn, id);
+        }
+
+        /*
+         * Returns the all products in JSON.
+         * */
+        [HttpGet]
+        [Route("GetAllProducts/")]
+        public string getAllProducts()
+        {
+            return Program.db.getAllProductsInJson(DB.conn);
         }
     }
 }

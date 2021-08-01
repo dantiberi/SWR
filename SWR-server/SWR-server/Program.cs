@@ -18,7 +18,6 @@ namespace SWR_server
             Debug.WriteLine("START");
 
             db = new DB();
-            Debug.WriteLine(db.getAllProductsInJson());
 
             CreateHostBuilder(args).Build().Run();
         }

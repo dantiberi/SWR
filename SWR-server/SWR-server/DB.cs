@@ -26,9 +26,9 @@ namespace SWR_server
                 conn = connect(dbname);
             }
 
-            printProductTable(conn);
-            print(getJsonOfProduct(conn, 1));
-            print(getLastInsertedProductId().ToString());
+            //printProductTable(conn);
+            //print(getJsonOfProduct(conn, 1));
+            //print(getLastInsertedProductId(conn).ToString());
         }
         //static void Main(string[] args)
         //{
@@ -237,7 +237,7 @@ namespace SWR_server
             return JsonConvert.SerializeObject(p);  
         }
 
-        public int getLastInsertedProductId()
+        public int getLastInsertedProductId(SQLiteConnection conn)
         {
             if (conn.State == 0)//If closed then open
                 openDbConnection();
@@ -271,7 +271,7 @@ namespace SWR_server
         }
 
         //Probably can be greatly optimized
-        public string getAllProductsInJson()
+        public string getAllProductsInJson(SQLiteConnection conn)
         {
             if (conn.State == 0)//If closed then open
                 openDbConnection();
