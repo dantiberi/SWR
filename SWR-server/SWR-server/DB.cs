@@ -233,11 +233,9 @@ namespace SWR_server
                         break;
                 }
             }
-            closeDB(conn);
+            //closeDB(conn); //Leaved commented out or else will break getAllProductsInJson()
             return JsonConvert.SerializeObject(p);  
         }
-
-        
 
         public int getLastInsertedProductId()
         {
@@ -270,6 +268,34 @@ namespace SWR_server
             }
             closeDB(conn);
             return result;
+        }
+
+        //Probably can be greatly optimized
+        public string getAllProductsInJson()
+        {
+            if (conn.State == 0)//If closed then open
+                openDbConnection();
+
+            string ret = "{";
+
+            SQLiteCommand sqlite_cmd = conn.CreateCommand();
+            sqlite_cmd.CommandText = "SELECT COUNT(*) FROM product";
+            int count = int.Parse(sqlite_cmd.ExecuteScalar().ToString()); //Get number of items
+
+            for(int i = 1; i <= count; i++)//For each product
+            {
+                ret += "\"product_" + i + "\": [ " + getJsonOfProduct(conn, i) + "]";
+
+                if (i != count)
+                {
+                    ret += ",";
+                }
+            }
+
+            ret += "}";
+
+            closeDB(conn);
+            return ret;
         }
 
         public static void closeDB(SQLiteConnection conn)
