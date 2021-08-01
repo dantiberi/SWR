@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FetcherService } from '../fetcher.service';
 import { Product } from '../ts/product';
+import { shell } from 'electron';
 
 @Component({
   selector: 'app-product-list',
@@ -37,10 +38,30 @@ export class ProductListComponent implements OnInit {
 
       var imgElement = document.createElement("img");
       imgElement.setAttribute("src", p.img_url);
+      imgElement.setAttribute("class", "product-img");
+      //imgElement.style.maxHeight = "10em"
+
+      var nameElement = document.createElement("h3");
+      nameElement.setAttribute("class", "product-name");
+      //nameElement.setAttribute("onclick", "window.location.href='" + p.url+"'")
+      nameElement.setAttribute("(click)", "visitLinkInBrowser(" + p.url + ")")
+      nameElement.innerText = p.name;
+
+      var priceElement = document.createElement("h3");
+      priceElement.setAttribute("class", "product-price");
+      priceElement.innerText = "$" + p.price;
+
+      cardElement.appendChild(nameElement);
+      cardElement.appendChild(imgElement);
+      cardElement.appendChild(priceElement);
 
       document.getElementById("product-list-wrapper")?.appendChild(cardElement); //? because it could be null
-      document.getElementById("product:" + p.id)?.appendChild(imgElement); //? because it could be null
+      //document.getElementById("product:" + p.id)?.appendChild(imgElement); //? because it could be null
     });
+  }
+
+  visitLinkInBrowser(url: string): void{
+    //Post request link to be opened;
   }
 
   ngOnInit(): void{

@@ -1,3 +1,16 @@
 button{
     background-color: aquamarine;
+    margin: 1em;
+}
+
+:host::ng-deep mat-card{
+    margin: 1em;
+    border-radius: 10px;
+}
+
+:host::ng-deep .product-img{
+    max-width: 10em;
+    max-height: 10em;
+    box-shadow: 3px 3px 10px black;
+    border-radius: 10px;
 }
