@@ -6,11 +6,42 @@ button{
 :host::ng-deep mat-card{
     margin: 1em;
     border-radius: 10px;
+
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 0.2fr 0.6fr 0.2fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+        "product-name product-name"
+        "product-img product-img"
+        "product-link product-price"; 
 }
 
 :host::ng-deep .product-img{
+    grid-area: product-img;
     max-width: 10em;
     max-height: 10em;
     box-shadow: 3px 3px 10px black;
     border-radius: 10px;
+    margin: 2em;
 }
+
+:host::ng-deep .product-link{
+    grid-area: product-link;
+    color: black;
+    background-color: white;
+}
+:host::ng-deep .product-link:active{
+    box-shadow: 3px 3px 10px black;
+    background-color: aquamarine;
+}
+
+:host::ng-deep .product-name{ 
+    grid-area: product-name; 
+}
+
+:host::ng-deep .product-price{ 
+    grid-area: product-price; 
+    text-align: center;
+}
+

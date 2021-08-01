@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './product-list/product-list.component';
 
+import { ClipboardModule } from 'ngx-clipboard';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,7 +23,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     MatCardModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
