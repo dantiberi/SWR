@@ -284,7 +284,8 @@ namespace SWR_server
 
             for(int i = 1; i <= count; i++)//For each product
             {
-                ret += "\"product_" + i + "\": [ " + getJsonOfProduct(conn, i) + "]";
+                //ret += "\"product_" + i + "\": [ " + getJsonOfProduct(conn, i) + "]";
+                ret += "\"product_" + i + "\":" + getJsonOfProduct(conn, i);
 
                 if (i != count)
                 {
