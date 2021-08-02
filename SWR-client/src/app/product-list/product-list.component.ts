@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FetcherService } from '../fetcher.service';
 import { Product } from '../ts/product';
 import { ClipboardService } from 'ngx-clipboard';
+import { HashTable } from 'angular-hashtable'; //https://github.com/brutalchrist/angular-hashtable
 
 @Component({
   selector: 'app-product-list',
@@ -12,7 +13,8 @@ export class ProductListComponent implements OnInit {
 
 
   private fetcherService: FetcherService; 
-  public products: Product[] = [];
+  //public products: Product[] = [];
+  public products: HashTable<string, Product> = new HashTable<string, Product>();
   public static clipboardApi: ClipboardService;
 
   constructor(fetcherService: FetcherService, clipboardApi: ClipboardService){
@@ -32,8 +34,8 @@ export class ProductListComponent implements OnInit {
   }
 
   public displayProductsInList(): void{
-    this.clearProductsDisplay();//Remove existing elements
-    this.products.forEach(function (p) {
+    this.removeAllProductsFromDisplay();//Remove existing elements
+    this.products.forEach((key:string, p:Product) =>{
       var cardElement = document.createElement("mat-card");
       cardElement.setAttribute("id", "product:" + p.id);
       cardElement.setAttribute("class", "mat-card mat-focus-indicator");
@@ -79,10 +81,17 @@ export class ProductListComponent implements OnInit {
   /**
    * Clears the display but NOT the products list.
    */
-  public clearProductsDisplay(): void{
-    for(let i = 0; i < this.products.length; i++){
-      document.getElementById("product:" + this.products[i].id)?.remove();
+  public removeAllProductsFromDisplay(): void{
+    for(let i = 0; i < this.products.size(); i++){
+      //document.getElementById("product:" + this.products.)?.remove();
+      this.products.forEach((key: string, value: Product) => {
+        document.getElementById("product:" + this.products.get("product:"+value.id))?.remove();
+      });
     }
+  }
+
+  public removeProductFromDisplay(id: number): void{
+
   }
   
   public processProductJson(j: any): void{
@@ -90,7 +99,8 @@ export class ProductListComponent implements OnInit {
     var pJson =  JSON.parse(json);
     //console.log(pJson.name + " | " + pJson.isOnSale)
     var p: Product = new Product(pJson.url, pJson.name, pJson.price, pJson.imgUrl, pJson.id, pJson.isOnSale);
-    this.products = this.products.concat(p);//Add to products list
+    //this.products = this.products.concat(p);//Add to products list
+    this.products.put("product:"+p.id, p);
     //console.log("Num Products: " + this.products.length);      
   }
 
@@ -98,7 +108,7 @@ export class ProductListComponent implements OnInit {
    * Loads all products from DB
    */
   public async loadProducts(): Promise<void>{
-    this.products = [];//Clear current products list;
+    this.products = new HashTable<string, Product>();;//Clear current products list;
     var res = this.fetcherService.getAllProducts()
     ;(await res).subscribe(response =>{
       var tempString: string = JSON.stringify(response);
