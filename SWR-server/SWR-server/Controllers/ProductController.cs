@@ -12,20 +12,20 @@ namespace SWR_server.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        //Scrapers
-        AmzScraper amz = new AmzScraper();
-
         [HttpPost()]
         [Route("AddAmazonProduct/")]
         public string storeAmazonProduct([FromBody] ProductModel amzProduct)
         {
+            AmzScraper amz = new AmzScraper();
+
             amz.start(amzProduct.url);
             
-            Program.db.addProduct(DB.conn, amz.url, amz.name, amz.price, amz.productImg);
+            Program.db.addProduct(DB.conn, amz.url, amz.name, amz.price, amz.productImg, amz.isOnSale);
             //Program.db.printProductTable(DB.conn);
             string res = JsonConvert.SerializeObject(amz);
 
             amz.stop();
+            amz = null;
 
             GC.Collect();//Helps a ton with a memory leak coming from Iron Web Scraper.
 

@@ -83,7 +83,7 @@ export class ProductListComponent implements OnInit {
   public processProductJson(j: any): void{
     var json: string = JSON.stringify(j);
     var pJson =  JSON.parse(json);
-    var p: Product = new Product(pJson.url, pJson.name, pJson.price, pJson.imgUrl, pJson.id);
+    var p: Product = new Product(pJson.url, pJson.name, pJson.price, pJson.imgUrl, pJson.id, pJson.isOnSale);
     this.products = this.products.concat(p);//Add to products list
     //console.log("Num Products: " + this.products.length);      
   }
@@ -120,7 +120,7 @@ export class ProductListComponent implements OnInit {
     //VERIFY PRODUCT FIRST
     try {
       if((url.includes(".com") || url.includes(".net") || url.includes(".org") || url.includes(".gov") || url.includes(".edu") || url.includes(".co") || url.includes(".uk")) && url.includes("http")){
-        this.fetcherService.giveAmazonProduct(new Product(url, "", -1.0, "", -1));
+        this.fetcherService.giveAmazonProduct(new Product(url, "", -1.0, "", -1, false));
       }
     } catch (error) {
       console.log(error);

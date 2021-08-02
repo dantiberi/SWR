@@ -24,6 +24,8 @@ namespace SWR_server
         public string name;
         [JsonProperty]
         public Boolean parseComplete = false;
+        [JsonProperty]
+        public Boolean isOnSale = false;
 
         public AmzScraper()
         {  
@@ -39,6 +41,7 @@ namespace SWR_server
         { 
             HtmlNode productImgNode = response.GetElementById("landingImage");
             this.productImg = productImgNode.GetAttribute("src");
+            this.isOnSale = false;//Will be overwritten if is on sale.
 
             HtmlNode price;
             String priceString = "";
@@ -50,15 +53,15 @@ namespace SWR_server
             catch (System.NullReferenceException e)
             {
                 priceString = response.GetElementById("priceblock_dealprice").InnerText;
+                this.isOnSale = true;
             }
 
             priceString = priceString.Remove(0, 1);//Removes '$' from string.
             this.price = Double.Parse(priceString);
 
             this.name = response.GetElementById("productTitle").InnerText.Replace("\n", "");
-
-            this.parseComplete = true;
- 
+            
+            this.parseComplete = true;          
         }
 
         //Getters

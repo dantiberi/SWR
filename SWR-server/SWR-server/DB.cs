@@ -84,7 +84,8 @@ namespace SWR_server
             name VARCHAR(30),
             url VARCHAR(1000) NOT NULL,
             price DOUBLE,
-            img_url VARCHAR(1000)
+            img_url VARCHAR(1000),
+            is_on_sale INT
             );
             ";
             sqlite_cmd = conn.CreateCommand();
@@ -120,12 +121,19 @@ namespace SWR_server
             closeDB(conn);
         }
 
-        public void addProduct(SQLiteConnection conn, string url, string name, double price, string imgUrl)
+        public void addProduct(SQLiteConnection conn, string url, string name, double price, string imgUrl, bool isOnSale)
         {
             if (conn.State == 0)//If closed then open
                 openDbConnection();
+
+            int saleStatus;
+            if (isOnSale)
+                saleStatus = 1;
+            else
+                saleStatus = 0;
+
             SQLiteCommand sqlite_cmd;
-            string Createsql = "INSERT INTO product VALUES(null, '" + name +"', '" + url +"', " + price + ", '" + imgUrl + "')";
+            string Createsql = "INSERT INTO product VALUES(null, '" + name +"', '" + url +"', " + price + ", '" + imgUrl + "', " + saleStatus + ")";
             //print(Createsql);
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
@@ -138,7 +146,7 @@ namespace SWR_server
             if (conn.State == 0)//If closed then open
                 openDbConnection();
             SQLiteCommand sqlite_cmd;
-            string Createsql = "INSERT INTO product VALUES(null, 'Nintendo 64', 'google.com', 97.35, null)";
+            string Createsql = "INSERT INTO product VALUES(null, 'Nintendo 64', 'google.com', 97.35, null, 0)";
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
