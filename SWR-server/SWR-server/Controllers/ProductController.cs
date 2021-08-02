@@ -55,14 +55,29 @@ namespace SWR_server.Controllers
             return Program.db.getJsonOfProduct(DB.conn, id);
         }
 
-        /*
-         * Returns the all products in JSON.
-         * */
+        /// <summary>
+        /// Calls the DB instance to return a JSON object array string of all products in the database.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetAllProducts/")]
         public string getAllProducts()
         {
             return Program.db.getAllProductsInJson(DB.conn);
+        }
+
+        /// <summary>
+        /// Calls database to remove the product with the given p_id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("RemoveProduct/")]
+        public string removeProduct(int id)
+        {
+            //System.Diagnostics.Debug.WriteLine("DELETE CALLED ON PRODUCT " + id);
+            Program.db.removeProduct(DB.conn, id);
+            return "Product " + id + " has successfully been deleted";
         }
     }
 }

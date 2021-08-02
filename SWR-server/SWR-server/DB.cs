@@ -146,6 +146,7 @@ namespace SWR_server
             sqlite_cmd.ExecuteNonQuery();
             closeDB(conn);
         }
+
         public void printProductTable(SQLiteConnection conn)
         {
             if (conn.State == 0)//If closed then open
@@ -277,7 +278,11 @@ namespace SWR_server
             return result;
         }
 
-        //Probably can be greatly optimized
+        /// <summary>
+        /// Returns a string that represents a JSON object array of all products stored in the database.
+        /// </summary>
+        /// <param name="conn"></param>
+        /// <returns></returns>
         public string getAllProductsInJson(SQLiteConnection conn)
         {
             if (conn.State == 0)//If closed then open
@@ -302,8 +307,27 @@ namespace SWR_server
 
             ret += "}";
 
-            closeDB(conn);
+            //closeDB(conn);
             return ret;
+        }
+
+        /// <summary>
+        /// Removes product with given id from database.
+        /// </summary>
+        /// <param name="conn"></param>
+        /// <param name="id"></param>
+        public void removeProduct(SQLiteConnection conn, int id)
+        {
+            if (conn.State == 0)//If closed then open
+                openDbConnection();
+
+            SQLiteCommand sqlite_cmd;
+            string Createsql = "DELETE FROM product WHERE p_id=" + id;
+            sqlite_cmd = conn.CreateCommand();
+            sqlite_cmd.CommandText = Createsql;
+            sqlite_cmd.ExecuteNonQuery();
+
+            closeDB(conn);
         }
 
         public static void closeDB(SQLiteConnection conn)
