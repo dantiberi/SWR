@@ -32,6 +32,7 @@ export class ProductListComponent implements OnInit {
   }
 
   public displayProductsInList(): void{
+    this.clearProductsDisplay();//Remove existing elements
     this.products.forEach(function (p) {
       var cardElement = document.createElement("mat-card");
       cardElement.setAttribute("id", "product:" + p.id);
@@ -65,8 +66,18 @@ export class ProductListComponent implements OnInit {
       cardElement.appendChild(priceElement);
 
       document.getElementById("product-list-wrapper")?.appendChild(cardElement); //? because it could be null
+
       //document.getElementById("product:" + p.id)?.appendChild(imgElement); //? because it could be null
   });
+  }
+
+  /**
+   * Clears the display but NOT the products list.
+   */
+  public clearProductsDisplay(): void{
+    for(let i = 0; i < this.products.length; i++){
+      document.getElementById("product:" + this.products[i].id)?.remove();
+    }
   }
   
   public processProductJson(j: any): void{
@@ -81,6 +92,7 @@ export class ProductListComponent implements OnInit {
    * Loads all products from DB
    */
   public async loadProducts(): Promise<void>{
+    this.products = [];//Clear current products list;
     var res = this.fetcherService.getAllProducts()
     ;(await res).subscribe(response =>{
       var tempString: string = JSON.stringify(response);
