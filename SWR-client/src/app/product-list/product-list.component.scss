@@ -30,6 +30,7 @@ button{
     grid-area: product-link;
     color: black;
     background-color: white;
+    width: fit-content;
 }
 :host::ng-deep .product-link:active{
     box-shadow: 3px 3px 10px black;
