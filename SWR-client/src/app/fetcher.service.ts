@@ -33,4 +33,9 @@ export class FetcherService {
     //https://localhost:44363/api/Product/GetProduct?id=2
     return this.httpClient.get("https://localhost:44363/api/Product/GetAllProducts");
   }
+
+  public async deleteProduct(id: number): Promise<Observable<any>> {
+    //https://localhost:44363/api/Product/GetProduct?id=2
+    return this.httpClient.delete("https://localhost:44363/api/Product/RemoveProduct?id=" + id, {responseType: 'text'});
+  }
 }

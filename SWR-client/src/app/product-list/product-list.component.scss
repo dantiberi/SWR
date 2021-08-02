@@ -8,14 +8,18 @@ button{
     margin: 1em;
     border-radius: 10px;
     width: 50%;
+    min-width: fit-content;
+    height: fit-content;
+
+    //https://grid.layoutit.com/?id=KjLXmUg
     display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    grid-template-rows: 0.2fr 0.6fr 0.2fr; 
-    gap: 0px 0px; 
+    grid-template-columns: 0.8fr 0.8fr 1.4fr; 
+    grid-template-rows: 0.2fr 1fr 0.2fr; 
+    gap: 1em 1em; 
     grid-template-areas: 
-        "product-name product-name"
-        "product-img product-img"
-        "product-link product-price"; 
+        "product-name product-name product-name"
+        "product-img product-img product-img"
+        "product-link product-remove product-price"; 
 }
 
 :host::ng-deep .product-img{
@@ -31,10 +35,24 @@ button{
     color: black;
     background-color: white;
     width: fit-content;
+    height: fit-content;
 }
 :host::ng-deep .product-link:active{
     box-shadow: 3px 3px 10px black;
     background-color: aquamarine;
+}
+
+:host::ng-deep .product-remove{
+    grid-area: product-remove;
+    color: white;
+    background-color: #CC252C;
+    width: fit-content;
+    height: fit-content;
+}
+:host::ng-deep .product-remove:active{
+    box-shadow: 3px 3px 10px black;
+    background-color: white;
+    color: #CC252C;
 }
 
 :host::ng-deep .product-name{ 

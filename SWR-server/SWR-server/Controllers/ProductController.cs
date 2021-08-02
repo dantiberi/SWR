@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SWR_server.Controllers
@@ -14,7 +15,7 @@ namespace SWR_server.Controllers
     {
         [HttpPost()]
         [Route("AddAmazonProduct/")]
-        public string storeAmazonProduct([FromBody] ProductModel amzProduct)
+        public IActionResult storeAmazonProduct([FromBody] ProductModel amzProduct)
         {
             AmzScraper amz = new AmzScraper();
 
@@ -29,7 +30,9 @@ namespace SWR_server.Controllers
 
             GC.Collect();//Helps a ton with a memory leak coming from Iron Web Scraper.
 
-            return res;
+            //return res;
+
+            return Ok(res);
         }
 
         /*
@@ -73,11 +76,12 @@ namespace SWR_server.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("RemoveProduct/")]
-        public string removeProduct(int id)
+        public IActionResult removeProduct(int id)
         {
             //System.Diagnostics.Debug.WriteLine("DELETE CALLED ON PRODUCT " + id);
             Program.db.removeProduct(DB.conn, id);
-            return "Product " + id + " has successfully been deleted";
+            //return "Product " + id + " has successfully been deleted";
+            return Ok("{Product " + id + " has successfully been deleted}");
         }
     }
 }

@@ -58,6 +58,17 @@ export class ProductListComponent implements OnInit {
       linkButtonElement.setAttribute("class", "product-link mat-focus-indicator mat-button mat-button-base product-card-element");
       linkButtonElement.innerText = "Copy Link"
 
+      var removeButtonElement = document.createElement("button");
+      removeButtonElement.setAttribute("mat-button", "");
+      removeButtonElement.setAttribute("_ngcontent-hgy-c46","");
+      //linkButtonElement.setAttribute("(click)", "copyLink(" + p.url + ")");
+      removeButtonElement.addEventListener('click', (e) => {this.removeProductButton(p.id)} );
+      removeButtonElement.setAttribute("class", "product-remove mat-focus-indicator mat-button mat-button-base product-card-element");
+
+      var removeButtonIcon = document.createElement("mat-icon");
+      removeButtonIcon.innerText="delete";
+      removeButtonElement.appendChild(removeButtonIcon);
+
       var priceElement = document.createElement("h3");
       priceElement.setAttribute("class", "product-price product-card-element");
       priceElement.innerText = "$" + p.price;
@@ -71,6 +82,7 @@ export class ProductListComponent implements OnInit {
       cardElement.appendChild(imgElement);
       cardElement.appendChild(linkButtonElement);
       cardElement.appendChild(priceElement);
+      cardElement.appendChild(removeButtonElement);
 
       document.getElementById("product-list-wrapper")?.appendChild(cardElement); //? because it could be null
 
@@ -85,15 +97,23 @@ export class ProductListComponent implements OnInit {
     for(let i = 0; i < this.products.size(); i++){
       //document.getElementById("product:" + this.products.)?.remove();
       this.products.forEach((key: string, value: Product) => {
-        document.getElementById("product:" + this.products.get("product:"+value.id))?.remove();
+        document.getElementById("product:" + this.products.get("product:"+value.id).id)?.remove();
       });
     }
   }
 
   public removeProductFromDisplay(id: number): void{
-
+    //console.log("product:" + id);
+    document.getElementById("product:" + id)?.remove();
   }
   
+  public async removeProductButton(id: number){
+    this.products.remove("product:"+id);
+    this.removeProductFromDisplay(id);
+
+    (await this.fetcherService.deleteProduct(id)).subscribe();
+  }
+
   public processProductJson(j: any): void{
     var json: string = JSON.stringify(j);
     var pJson =  JSON.parse(json);

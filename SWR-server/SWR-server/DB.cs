@@ -118,7 +118,7 @@ namespace SWR_server
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
-            closeDB(conn);
+            //closeDB(conn);
         }
 
         public void addProduct(SQLiteConnection conn, string url, string name, double price, string imgUrl, int isOnSale)
@@ -132,7 +132,7 @@ namespace SWR_server
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
-            closeDB(conn);
+            //closeDB(conn);
         }
 
         public void insertTestProduct(SQLiteConnection conn)
@@ -144,7 +144,7 @@ namespace SWR_server
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
-            closeDB(conn);
+            //closeDB(conn);
         }
 
         public void printProductTable(SQLiteConnection conn)
@@ -166,7 +166,7 @@ namespace SWR_server
                 }
                 print(row);
             }
-            closeDB(conn);
+            //closeDB(conn);
         }
 
         public void insertData(SQLiteConnection conn)
@@ -178,7 +178,7 @@ namespace SWR_server
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
             sqlite_cmd.ExecuteNonQuery();
-            closeDB(conn);
+            //closeDB(conn);
         }
 
         public void readData(SQLiteConnection conn)
@@ -196,7 +196,7 @@ namespace SWR_server
                 string myreader = sqlite_datareader.GetString(0);
                 print(myreader);
             }
-            closeDB(conn);
+            //closeDB(conn);
         }
 
         public string getJsonOfProduct(SQLiteConnection conn, int id)
@@ -213,33 +213,39 @@ namespace SWR_server
 
             ProductModel p = new ProductModel();
 
-            for(int i = 0; i < sqlite_datareader.FieldCount; i++)
+            try
             {
-                //print(sqlite_datareader.GetName(i));
-                switch (sqlite_datareader.GetName(i))
-                {                   
-                    case "name":
-                        p.name = sqlite_datareader.GetValue(i).ToString();
-                        break;
-                    case "url":
-                        p.url = sqlite_datareader.GetValue(i).ToString();
-                        break;
-                    case "price":
-                        p.price = Double.Parse(sqlite_datareader.GetValue(i).ToString());
-                        break;
-                    case "img_url":
-                        p.imgUrl = sqlite_datareader.GetValue(i).ToString();
-                        break;
-                    case "p_id":
-                        p.id = int.Parse(sqlite_datareader.GetValue(i).ToString());
-                        break;
-                    case "is_on_sale":
-                        p.isOnSale = int.Parse(sqlite_datareader.GetValue(i).ToString());
-                        break;
-                    default:
-                        print("DB.getJsonOfProduct: UNHANDLED FIELD");
-                        break;
+                for (int i = 0; i < sqlite_datareader.FieldCount; i++)
+                {
+                    //print(sqlite_datareader.GetName(i));
+                    switch (sqlite_datareader.GetName(i))
+                    {
+                        case "name":
+                            p.name = sqlite_datareader.GetValue(i).ToString();
+                            break;
+                        case "url":
+                            p.url = sqlite_datareader.GetValue(i).ToString();
+                            break;
+                        case "price":
+                            p.price = Double.Parse(sqlite_datareader.GetValue(i).ToString());
+                            break;
+                        case "img_url":
+                            p.imgUrl = sqlite_datareader.GetValue(i).ToString();
+                            break;
+                        case "p_id":
+                            p.id = int.Parse(sqlite_datareader.GetValue(i).ToString());
+                            break;
+                        case "is_on_sale":
+                            p.isOnSale = int.Parse(sqlite_datareader.GetValue(i).ToString());
+                            break;
+                        default:
+                            print("DB.getJsonOfProduct: UNHANDLED FIELD");
+                            break;
+                    }
                 }
+            }catch(System.InvalidOperationException e)
+            {
+                print("Product with id: " + id + " does not exist.");
             }
             //closeDB(conn); //Leaved commented out or else will break getAllProductsInJson()
             return JsonConvert.SerializeObject(p);  
@@ -264,17 +270,17 @@ namespace SWR_server
                     sqlite_cmd = conn.CreateCommand();
                     sqlite_cmd.CommandText = "SELECT max(p_id) FROM product";
                     int res = int.Parse(sqlite_cmd.ExecuteScalar().ToString());
-                    closeDB(conn);
+                    //closeDB(conn);
                     return res;
                 }
                 else
                 {
-                    closeDB(conn);
+                    //closeDB(conn);
                     return result;
                 }
                     
             }
-            closeDB(conn);
+            //closeDB(conn);
             return result;
         }
 
@@ -321,14 +327,20 @@ namespace SWR_server
             if (conn.State == 0)//If closed then open
                 openDbConnection();
 
-            SQLiteCommand sqlite_cmd;
-            string Createsql = "DELETE FROM product WHERE p_id=" + id;
-            sqlite_cmd = conn.CreateCommand();
-            sqlite_cmd.CommandText = Createsql;
-            sqlite_cmd.ExecuteNonQuery();
+            try
+            {
+                SQLiteCommand sqlite_cmd;
+                string Createsql = "DELETE FROM product WHERE p_id=" + id;
+                sqlite_cmd = conn.CreateCommand();
+                sqlite_cmd.CommandText = Createsql;
+                sqlite_cmd.ExecuteNonQuery();
+            }catch(System.InvalidOperationException e)
+            {
+                print("Product with id: " + id + " does not exist.");
+            }
 
-            closeDB(conn);
-        }
+    //closeDB(conn);
+}
 
         public static void closeDB(SQLiteConnection conn)
         {
