@@ -296,23 +296,36 @@ namespace SWR_server
 
             string ret = "{";
 
-            SQLiteCommand sqlite_cmd = conn.CreateCommand();
-            sqlite_cmd.CommandText = "SELECT COUNT(*) FROM product";
-            int count = int.Parse(sqlite_cmd.ExecuteScalar().ToString()); //Get number of items
+            //SQLiteCommand sqlite_cmd = conn.CreateCommand();
+            //sqlite_cmd.CommandText = "SELECT COUNT(*) FROM product";
+            //int count = int.Parse(sqlite_cmd.ExecuteScalar().ToString()); //Get number of items
 
-            for(int i = 1; i <= count; i++)//For each product
+
+            //for(int i = 1; i <= count; i++)//For each product
+            //{
+            //    //ret += "\"product_" + i + "\": [ " + getJsonOfProduct(conn, i) + "]";
+            //    ret += "\"product_" + i + "\":" + getJsonOfProduct(conn, i);
+
+            //    if (i != count)
+            //    {
+            //        ret += ",";
+            //    }
+            //}
+
+            SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = conn.CreateCommand();
+            sqlite_cmd.CommandText = "SELECT p_id FROM product";
+            sqlite_datareader = sqlite_cmd.ExecuteReader();
+            sqlite_datareader.Read();
+            while (sqlite_datareader.Read())
             {
-                //ret += "\"product_" + i + "\": [ " + getJsonOfProduct(conn, i) + "]";
-                ret += "\"product_" + i + "\":" + getJsonOfProduct(conn, i);
-
-                if (i != count)
-                {
-                    ret += ",";
-                }
+                int i = int.Parse(sqlite_datareader.GetValue(0).ToString());
+                //print(i + "");
+                ret += "\"product_" + i + "\":" + getJsonOfProduct(conn, i) + ",";
             }
-
-            ret += "}";
-
+            ret = ret.Remove(ret.Length - 1);
+            ret += "}";          
             //closeDB(conn);
             return ret;
         }

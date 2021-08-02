@@ -7,8 +7,8 @@ button{
     background-color: #8F92B9;
     margin: 1em;
     border-radius: 10px;
-    width: 50%;
-    min-width: fit-content;
+    width: 60%;
+    min-width: min-content;
     height: fit-content;
 
     //https://grid.layoutit.com/?id=KjLXmUg
@@ -68,6 +68,10 @@ button{
 
 :host::ng-deep .price-on-sale{ 
     color:aquamarine;
+}
+
+:host::ng-deep h3{ 
+    width: initial;
 }
 
 :host::ng-deep .product-card-element{
