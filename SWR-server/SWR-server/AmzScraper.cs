@@ -36,16 +36,29 @@ namespace SWR_server
         }
 
         public override void Parse(Response response)
-        {
-            //Get Product Image Url       
-            HtmlNode productImgNode = response.GetElementById("landingImage");      
+        { 
+            HtmlNode productImgNode = response.GetElementById("landingImage");
             this.productImg = productImgNode.GetAttribute("src");
 
-            this.price = Double.Parse(response.GetElementById("priceblock_ourprice").InnerText.Remove(0,1));//Removes '$' from innter text.
+            HtmlNode price;
+            String priceString = "";
+            try
+            {
+                price = response.GetElementById("priceblock_ourprice");
+                priceString = price.InnerText;
+            }
+            catch (System.NullReferenceException e)
+            {
+                priceString = response.GetElementById("priceblock_dealprice").InnerText;
+            }
 
-            this.name = response.GetElementById("productTitle").InnerText.Replace("\n","");
-      
+            priceString = priceString.Remove(0, 1);//Removes '$' from string.
+            this.price = Double.Parse(priceString);
+
+            this.name = response.GetElementById("productTitle").InnerText.Replace("\n", "");
+
             this.parseComplete = true;
+ 
         }
 
         //Getters
