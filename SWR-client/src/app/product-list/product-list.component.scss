@@ -6,7 +6,7 @@ button{
 :host::ng-deep mat-card{
     margin: 1em;
     border-radius: 10px;
-
+    max-width: 35%;
     display: grid; 
     grid-template-columns: 1fr 1fr; 
     grid-template-rows: 0.2fr 0.6fr 0.2fr; 

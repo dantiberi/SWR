@@ -28,4 +28,9 @@ export class FetcherService {
     //https://localhost:44363/api/Product/GetProduct?id=2
     return this.httpClient.get("https://localhost:44363/api/Product/GetProduct?id=" + id);
   }
+
+  public async getAllProducts(): Promise<Observable<any>> {
+    //https://localhost:44363/api/Product/GetProduct?id=2
+    return this.httpClient.get("https://localhost:44363/api/Product/GetAllProducts");
+  }
 }

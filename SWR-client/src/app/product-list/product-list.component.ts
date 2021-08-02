@@ -13,7 +13,7 @@ export class ProductListComponent implements OnInit {
 
   private fetcherService: FetcherService; 
   public products: Product[] = [];
-  private clipboardApi: ClipboardService;
+  public static clipboardApi: ClipboardService;
 
   constructor(fetcherService: FetcherService, clipboardApi: ClipboardService){
     //fetcherService.getTestProdcut("https://www.amazon.com/Apple-AirPods-Charging-Latest-Model/dp/B07PXGQC1Q/ref=sr_1_1_sspa?dchild=1&keywords=airpods&qid=1627507012&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExQ1BLQUwwTU9EU1VBJmVuY3J5cHRlZElkPUEwMzUyMTQxMVlDQkZPREZROElQMiZlbmNyeXB0ZWRBZElkPUEwMzA4NzczMkMyM1hTQVYyRjFMVyZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=").subscribe(response => {
@@ -21,19 +21,18 @@ export class ProductListComponent implements OnInit {
     //fetcherService.giveAmazonProduct(testProduct);
     //console.log(fetcherService.getProduct(2));
     this.fetcherService = fetcherService;
-    this.clipboardApi = clipboardApi;
+    ProductListComponent.clipboardApi = clipboardApi;
   }
   
   public async loadTestProduct(id: number): Promise<void>{
     var res = this.fetcherService.getProduct(id)
-    ;(await res).subscribe(response =>{
-      var tempString: string = JSON.stringify(response);
-      var pJson =  JSON.parse(tempString);
-      //console.log(pJson);
-      var p: Product = new Product(pJson.url, pJson.name, pJson.price, pJson.imgUrl, pJson.id);
-      this.products = this.products.concat(p);
-      console.log("Num Products: " + this.products.length);
+    ;(await res).subscribe(response =>{     
+      this.processProductJson(response);
+    });
+  }
 
+  public displayProductsInList(): void{
+    this.products.forEach(function (p) {
       var cardElement = document.createElement("mat-card");
       cardElement.setAttribute("id", "product:" + p.id);
       cardElement.setAttribute("class", "mat-card mat-focus-indicator");
@@ -56,7 +55,7 @@ export class ProductListComponent implements OnInit {
       linkButtonElement.setAttribute("mat-button", "");
       linkButtonElement.setAttribute("_ngcontent-hgy-c46","");
       //linkButtonElement.setAttribute("(click)", "copyLink(" + p.url + ")");
-      linkButtonElement.addEventListener('click', (e) => {this.copyLink(p.url)} );
+      linkButtonElement.addEventListener('click', (e) => {ProductListComponent.copyLink(p.url)} );
       linkButtonElement.setAttribute("class", "product-link mat-focus-indicator mat-button mat-button-base");
       linkButtonElement.innerText = "Copy Link"
  
@@ -67,10 +66,39 @@ export class ProductListComponent implements OnInit {
 
       document.getElementById("product-list-wrapper")?.appendChild(cardElement); //? because it could be null
       //document.getElementById("product:" + p.id)?.appendChild(imgElement); //? because it could be null
+  });
+  }
+  
+  public processProductJson(j: any): void{
+    var json: string = JSON.stringify(j);
+    var pJson =  JSON.parse(json);
+    var p: Product = new Product(pJson.url, pJson.name, pJson.price, pJson.imgUrl, pJson.id);
+    this.products = this.products.concat(p);//Add to products list
+    //console.log("Num Products: " + this.products.length);      
+  }
+
+  /**
+   * Loads all products from DB
+   */
+  public async loadProducts(): Promise<void>{
+    var res = this.fetcherService.getAllProducts()
+    ;(await res).subscribe(response =>{
+      var tempString: string = JSON.stringify(response);
+      var productListJSON =  JSON.parse(tempString);
+
+      //console.log("TYPE: " + typeof(productListJSON));
+      //console.log(Object.keys(productListJSON).length);
+      //console.log(Object.keys(productListJSON).find(k => productListJSON[k].index === 1));
+      //console.log(Object.values(productListJSON).forEach(pJson => console.log(pJson)));
+
+      Object.values(productListJSON).forEach(pJson => {
+        //console.log(pJson)
+        this.processProductJson(pJson);
+      });
     });
   }
 
-  copyLink(url: string): void{
+  static copyLink(url: string): void{
     this.clipboardApi.copyFromContent(url);
   }
 
