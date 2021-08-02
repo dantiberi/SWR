@@ -1,0 +1,9 @@
+<div class="add-product-form-wrapper">
+    <mat-form-field class="add-product-form-element">
+        <input matInput matNativeControl placeholder="Enter Url..." [formControl]="productURL">
+    </mat-form-field>
+    
+    <button mat-button (click)="buttonClicked()" class="add-product-form-element">
+        <mat-icon>add</mat-icon>
+    </button>    
+</div>

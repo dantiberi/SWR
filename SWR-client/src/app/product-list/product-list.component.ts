@@ -39,16 +39,16 @@ export class ProductListComponent implements OnInit {
 
       var imgElement = document.createElement("img");
       imgElement.setAttribute("src", p.img_url);
-      imgElement.setAttribute("class", "product-img");
+      imgElement.setAttribute("class", "product-img product-card-element");
       //imgElement.style.maxHeight = "10em"
 
       var nameElement = document.createElement("h3");
-      nameElement.setAttribute("class", "product-name");
+      nameElement.setAttribute("class", "product-name product-card-element");
       //nameElement.setAttribute("onclick", "window.location.href='" + p.url+"'")
       nameElement.innerText = p.name;
 
       var priceElement = document.createElement("h3");
-      priceElement.setAttribute("class", "product-price");
+      priceElement.setAttribute("class", "product-price product-card-element");
       priceElement.innerText = "$" + p.price;
 
       var linkButtonElement = document.createElement("button");
@@ -56,7 +56,7 @@ export class ProductListComponent implements OnInit {
       linkButtonElement.setAttribute("_ngcontent-hgy-c46","");
       //linkButtonElement.setAttribute("(click)", "copyLink(" + p.url + ")");
       linkButtonElement.addEventListener('click', (e) => {ProductListComponent.copyLink(p.url)} );
-      linkButtonElement.setAttribute("class", "product-link mat-focus-indicator mat-button mat-button-base");
+      linkButtonElement.setAttribute("class", "product-link mat-focus-indicator mat-button mat-button-base product-card-element");
       linkButtonElement.innerText = "Copy Link"
  
       cardElement.appendChild(nameElement);
@@ -96,6 +96,23 @@ export class ProductListComponent implements OnInit {
         this.processProductJson(pJson);
       });
     });
+  }
+
+  /**
+   * Called by event emitted from add-product-component to submit a product url to the backend.
+   * @param url 
+   */
+  registerProduct(url: string): void{
+    //console.log("REGISTER PRODUCT: " + url);
+
+    //VERIFY PRODUCT FIRST
+    try {
+      if((url.includes(".com") || url.includes(".net") || url.includes(".org") || url.includes(".gov") || url.includes(".edu") || url.includes(".co") || url.includes(".uk")) && url.includes("http")){
+        this.fetcherService.giveAmazonProduct(new Product(url, "", -1.0, "", -1));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   static copyLink(url: string): void{

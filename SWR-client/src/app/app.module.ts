@@ -7,20 +7,22 @@ import { AppComponent } from './app.component';
 import { ProductListComponent } from './product-list/product-list.component';
 
 import { ClipboardModule } from 'ngx-clipboard';
+import {OverlayModule} from '@angular/cdk/overlay';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
-import { AddProductButtonComponent } from './product-list/add-product-button/add-product-button.component';
-import { AddProductFormComponent } from './product-list/add-product-button/add-product-form/add-product-form.component';
+import { AddProductComponent } from './product-list/add-product/add-product.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent,
-    AddProductButtonComponent,
-    AddProductFormComponent
+    AddProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,11 @@ import { AddProductFormComponent } from './product-list/add-product-button/add-p
     BrowserAnimationsModule,
     MatButtonModule,
     ClipboardModule,
-    MatIconModule
+    MatIconModule,
+    OverlayModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
