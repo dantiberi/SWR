@@ -6,6 +6,8 @@ using System.Data.SQLite;
 using System.IO;
 using Newtonsoft.Json;
 
+//https://stackoverflow.com/questions/21453697/angularjs-access-parent-scope-from-child-controller
+
 namespace SWR_server
 {
     public class DB

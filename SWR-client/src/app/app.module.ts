@@ -11,11 +11,16 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import { AddProductButtonComponent } from './product-list/add-product-button/add-product-button.component';
+import { AddProductFormComponent } from './product-list/add-product-button/add-product-form/add-product-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent
+    ProductListComponent,
+    AddProductButtonComponent,
+    AddProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +29,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatCardModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    ClipboardModule
+    ClipboardModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
