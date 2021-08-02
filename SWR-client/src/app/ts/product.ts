@@ -12,5 +12,6 @@ export class Product {
         this.price = price;
         this.img_url = img_url;
         this.id = id;
+        this.isOnSale = isOnSale;
     }
 }
