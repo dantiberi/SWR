@@ -19,7 +19,7 @@ namespace SWR_server.Controllers
             AmzScraper amz = new AmzScraper();
 
             amz.start(amzProduct.url);
-            
+
             Program.db.addProduct(DB.conn, amz.url, amz.name, amz.price, amz.productImg, amz.isOnSale);
             //Program.db.printProductTable(DB.conn);
             string res = JsonConvert.SerializeObject(amz);

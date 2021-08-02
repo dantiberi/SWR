@@ -7,7 +7,7 @@ button{
     background-color: #8F92B9;
     margin: 1em;
     border-radius: 10px;
-    width: 35%;
+    width: 50%;
     display: grid; 
     grid-template-columns: 1fr 1fr; 
     grid-template-rows: 0.2fr 0.6fr 0.2fr; 
@@ -46,6 +46,10 @@ button{
     grid-area: product-price; 
     text-align: center;
     font-weight: 550;
+}
+
+:host::ng-deep .price-on-sale{ 
+    color:aquamarine;
 }
 
 :host::ng-deep .product-card-element{

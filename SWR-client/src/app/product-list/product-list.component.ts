@@ -48,10 +48,6 @@ export class ProductListComponent implements OnInit {
       //nameElement.setAttribute("onclick", "window.location.href='" + p.url+"'")
       nameElement.innerText = p.name;
 
-      var priceElement = document.createElement("h3");
-      priceElement.setAttribute("class", "product-price product-card-element");
-      priceElement.innerText = "$" + p.price;
-
       var linkButtonElement = document.createElement("button");
       linkButtonElement.setAttribute("mat-button", "");
       linkButtonElement.setAttribute("_ngcontent-hgy-c46","");
@@ -59,7 +55,16 @@ export class ProductListComponent implements OnInit {
       linkButtonElement.addEventListener('click', (e) => {ProductListComponent.copyLink(p.url)} );
       linkButtonElement.setAttribute("class", "product-link mat-focus-indicator mat-button mat-button-base product-card-element");
       linkButtonElement.innerText = "Copy Link"
- 
+
+      var priceElement = document.createElement("h3");
+      priceElement.setAttribute("class", "product-price product-card-element");
+      priceElement.innerText = "$" + p.price;
+      if(p.isOnSale == 1){
+        priceElement.setAttribute("class", priceElement.getAttribute("class") + " price-on-sale");
+        priceElement.innerText = "On Sale: " + priceElement.innerText;
+        //console.log("PRODUCT ON SALE!")
+      }
+
       cardElement.appendChild(nameElement);
       cardElement.appendChild(imgElement);
       cardElement.appendChild(linkButtonElement);
@@ -83,6 +88,7 @@ export class ProductListComponent implements OnInit {
   public processProductJson(j: any): void{
     var json: string = JSON.stringify(j);
     var pJson =  JSON.parse(json);
+    //console.log(pJson.name + " | " + pJson.isOnSale)
     var p: Product = new Product(pJson.url, pJson.name, pJson.price, pJson.imgUrl, pJson.id, pJson.isOnSale);
     this.products = this.products.concat(p);//Add to products list
     //console.log("Num Products: " + this.products.length);      
@@ -120,7 +126,7 @@ export class ProductListComponent implements OnInit {
     //VERIFY PRODUCT FIRST
     try {
       if((url.includes(".com") || url.includes(".net") || url.includes(".org") || url.includes(".gov") || url.includes(".edu") || url.includes(".co") || url.includes(".uk")) && url.includes("http")){
-        this.fetcherService.giveAmazonProduct(new Product(url, "", -1.0, "", -1, false));
+        this.fetcherService.giveAmazonProduct(new Product(url, "", -1.0, "", -1, 0));
       }
     } catch (error) {
       console.log(error);

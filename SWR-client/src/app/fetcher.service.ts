@@ -19,8 +19,8 @@ export class FetcherService {
     // console.log(JSON.stringify(product));
     // console.log("END OF BODY");
     this.httpClient.post("https://localhost:44363/api/Product/AddAmazonProduct", JSON.parse(JSON.stringify(product))).subscribe(
-      (response) => console.log(response),
-      (error) => console.log(error),
+      //(response) => console.log(response),
+      //(error) => console.log(error),
     );
   }
 

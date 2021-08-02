@@ -4,9 +4,9 @@ export class Product {
     public price: number = -0.00;
     public img_url: string = "";
     public id: number = -1;
-    public isOnSale: boolean = false;
+    public isOnSale: number = 0;
 
-    constructor(url: string, name: string, price: number, img_url: string, id:number, isOnSale: boolean){
+    constructor(url: string, name: string, price: number, img_url: string, id:number, isOnSale: number){
         this.url = url;
         this.name = name;
         this.price = price;

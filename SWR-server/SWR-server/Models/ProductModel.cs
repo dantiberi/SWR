@@ -12,6 +12,6 @@ namespace SWR_server
         public double price { get; set; }
         public String imgUrl { get; set; }
         public int id { get; set; }
-        public bool isOnSale { get; set; }
+        public int isOnSale { get; set; }
     }
 }

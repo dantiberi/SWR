@@ -121,19 +121,13 @@ namespace SWR_server
             closeDB(conn);
         }
 
-        public void addProduct(SQLiteConnection conn, string url, string name, double price, string imgUrl, bool isOnSale)
+        public void addProduct(SQLiteConnection conn, string url, string name, double price, string imgUrl, int isOnSale)
         {
             if (conn.State == 0)//If closed then open
                 openDbConnection();
 
-            int saleStatus;
-            if (isOnSale)
-                saleStatus = 1;
-            else
-                saleStatus = 0;
-
             SQLiteCommand sqlite_cmd;
-            string Createsql = "INSERT INTO product VALUES(null, '" + name +"', '" + url +"', " + price + ", '" + imgUrl + "', " + saleStatus + ")";
+            string Createsql = "INSERT INTO product VALUES(null, '" + name +"', '" + url +"', " + price + ", '" + imgUrl + "', " + isOnSale + ")";
             //print(Createsql);
             sqlite_cmd = conn.CreateCommand();
             sqlite_cmd.CommandText = Createsql;
@@ -237,6 +231,9 @@ namespace SWR_server
                         break;
                     case "p_id":
                         p.id = int.Parse(sqlite_datareader.GetValue(i).ToString());
+                        break;
+                    case "is_on_sale":
+                        p.isOnSale = int.Parse(sqlite_datareader.GetValue(i).ToString());
                         break;
                     default:
                         print("DB.getJsonOfProduct: UNHANDLED FIELD");
