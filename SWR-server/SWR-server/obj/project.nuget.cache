@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "8Ibo/JlFpLiH2x9K++BaxlT6ulZ+2iNA0GZAnbh/AW3ZgFLucEhJIqSb8iDwidmpBYeQYDSTXCER1NgUW3BYdQ==",
+  "dgSpecHash": "BkqSF8TlcEzQDMsjTrabpGPQROy6zxci+HTWnVqICwhZmh8wwnBy+16L4pwJS4pAdjwyByslyxDFdeZAx23HDQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\dan.tiberi\\Code Playground\\ShoppingWarRoom\\SWR-server\\SWR-server\\SWR-server.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\dan.tiberi\\.nuget\\packages\\docfx\\2.58.0\\docfx.2.58.0.nupkg.sha512",
+    "C:\\Users\\dan.tiberi\\.nuget\\packages\\docfx.console\\2.58.0\\docfx.console.2.58.0.nupkg.sha512",
     "C:\\Users\\dan.tiberi\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\dan.tiberi\\.nuget\\packages\\ironwebscraper\\2021.6.5\\ironwebscraper.2021.6.5.nupkg.sha512",
     "C:\\Users\\dan.tiberi\\.nuget\\packages\\microsoft.aspnet.cors\\5.2.7\\microsoft.aspnet.cors.5.2.7.nupkg.sha512",
@@ -123,6 +125,16 @@
     "C:\\Users\\dan.tiberi\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'docfx 2.58.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "docfx",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",

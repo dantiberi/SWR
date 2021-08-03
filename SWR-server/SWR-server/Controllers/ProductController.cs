@@ -13,6 +13,11 @@ namespace SWR_server.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        /// <summary>
+        /// Calls the static DB instance to add a product to the database.
+        /// </summary>
+        /// <param name="amzProduct">Json object using the ProductModel</param>
+        /// <returns>Ok status with added product in body.</returns>
         [HttpPost()]
         [Route("AddAmazonProduct/")]
         public IActionResult storeAmazonProduct([FromBody] ProductModel amzProduct)
@@ -35,10 +40,11 @@ namespace SWR_server.Controllers
             return Ok(res);
         }
 
-        /*
-         * Returns the last inserted product.
-         * Useful for add and immediate retrieve functionality.
-         * */
+        /// <summary>
+        /// Calls the static DB instance to return a JSON object representing the last product inserted.
+        /// Useful for add and immediate retrieve functions.
+        /// </summary>
+        /// <returns>A string representing a product as a Json object.</returns>
         [HttpGet]
         [Route("LastProduct/")]
         public string LastProduct()
@@ -46,9 +52,11 @@ namespace SWR_server.Controllers
             return Program.db.getLastInsertedProductId(DB.conn).ToString();
         }
 
-        /*
-         * Returns the product JSON of given p_id.
-         * */
+        /// <summary>
+        /// Calls the static DB instance to return a JSON object string for the product with the given p_id.
+        /// </summary>
+        /// <param name="id">p_id of product.</param>
+        /// <returns>A string representing a product as a Json object.</returns>
         [HttpGet]
         [Route("GetProduct/")]
         public string getProduct(int id)
@@ -59,9 +67,9 @@ namespace SWR_server.Controllers
         }
 
         /// <summary>
-        /// Calls the DB instance to return a JSON object array string of all products in the database.
+        /// Calls the static DB instance to return a JSON object array string of all products in the database.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>String representing a Json object array.</returns>
         [HttpGet]
         [Route("GetAllProducts/")]
         public string getAllProducts()
@@ -70,10 +78,10 @@ namespace SWR_server.Controllers
         }
 
         /// <summary>
-        /// Calls database to remove the product with the given p_id.
+        /// Removes a product from the database with the given p_id.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">p_id of product</param>
+        /// <returns>Ok status.</returns>
         [HttpDelete]
         [Route("RemoveProduct/")]
         public IActionResult removeProduct(int id)

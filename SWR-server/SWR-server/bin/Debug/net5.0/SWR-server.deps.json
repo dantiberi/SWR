@@ -37,6 +37,8 @@
           "Microsoft.AspNet.WebApi.Cors": "5.2.7",
           "Swashbuckle.AspNetCore": "5.6.3",
           "System.Data.SQLite": "1.0.114.4",
+          "docfx": "2.58.0",
+          "docfx.console": "2.58.0",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "5.0.0.0",
@@ -328,6 +330,18 @@
           "SWR-server.dll": {}
         }
       },
+      "docfx/2.58.0": {
+        "runtime": {
+          "lib/net472/docfx.exe": {
+            "assemblyVersion": "2.58.0.0",
+            "fileVersion": "2.58.0.41889"
+          }
+        },
+        "compile": {
+          "lib/net472/docfx.exe": {}
+        }
+      },
+      "docfx.console/2.58.0": {},
       "EntityFramework/6.4.4": {
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
@@ -3226,6 +3240,20 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "docfx/2.58.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-z1wbmPKo+oAckHElDApb54ylBa5e/bWXOV2XAPa2YpYZjv8Rzcxva1uDz9+/3Kmz+HUM2NubRtJgwv8fWQAJLw==",
+      "path": "docfx/2.58.0",
+      "hashPath": "docfx.2.58.0.nupkg.sha512"
+    },
+    "docfx.console/2.58.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jxkL8HkBf0RZtkicqv/Wl75qzdsZRhPAKo/TVxuNUXSFksHOGUExINM8X78IOXhFc5dghdC+3G3h3zinVTvqFg==",
+      "path": "docfx.console/2.58.0",
+      "hashPath": "docfx.console.2.58.0.nupkg.sha512"
     },
     "EntityFramework/6.4.4": {
       "type": "package",
