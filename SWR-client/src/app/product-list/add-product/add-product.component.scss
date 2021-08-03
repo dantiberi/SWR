@@ -1,15 +1,31 @@
 button {
-    background-color: #CC252C;
+    background-color: #45ffba;
     color:white;
+}
+button:active {
+    background-color: white;
+    color: #CC252C;
 }
 
 .add-product-form-wrapper{
     background-color: #8F92B9;
-    width: fit-content;
+    width: 60%;
+    min-width: fit-content;
     margin: 1em;
     border-radius: 10px;
 }
 
 .add-product-form-element{
-    margin: 0.5em;
+    margin: 1em;
+}
+
+mat-form-field {
+    width: 65%;
+}
+
+h3{
+    color: white;
+    padding-left: 1em;
+    padding-top: 1em;
+    margin-bottom: -1em;
 }

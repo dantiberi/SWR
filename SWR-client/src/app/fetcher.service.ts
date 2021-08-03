@@ -14,14 +14,11 @@ export class FetcherService {
     return this.httpClient.get(url);
   }
 
-  public giveAmazonProduct(product: Product){
+  public giveAmazonProduct(product: Product): Observable<any> {
     // console.log("BODY:");
     // console.log(JSON.stringify(product));
     // console.log("END OF BODY");
-    this.httpClient.post("https://localhost:44363/api/Product/AddAmazonProduct", JSON.parse(JSON.stringify(product))).subscribe(
-      //(response) => console.log(response),
-      //(error) => console.log(error),
-    );
+    return this.httpClient.post("https://localhost:44363/api/Product/AddAmazonProduct", JSON.parse(JSON.stringify(product)));
   }
 
   public async getProduct(id: number): Promise<Observable<any>> {
@@ -29,12 +26,12 @@ export class FetcherService {
     return this.httpClient.get("https://localhost:44363/api/Product/GetProduct?id=" + id);
   }
 
-  public async getAllProducts(): Promise<Observable<any>> {
+  public getAllProducts(): Observable<any> {
     //https://localhost:44363/api/Product/GetProduct?id=2
     return this.httpClient.get("https://localhost:44363/api/Product/GetAllProducts");
   }
 
-  public async deleteProduct(id: number): Promise<Observable<any>> {
+  public deleteProduct(id: number): Observable<any> {
     //https://localhost:44363/api/Product/GetProduct?id=2
     return this.httpClient.delete("https://localhost:44363/api/Product/RemoveProduct?id=" + id, {responseType: 'text'});
   }

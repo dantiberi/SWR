@@ -33,9 +33,10 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  public displayProductsInList(): void{
+  public async displayProductsInList(): Promise<void>{
     this.removeAllProductsFromDisplay();//Remove existing elements
     this.products.forEach((key:string, p:Product) =>{
+
       var cardElement = document.createElement("mat-card");
       cardElement.setAttribute("id", "product:" + p.id);
       cardElement.setAttribute("class", "mat-card mat-focus-indicator");
@@ -87,7 +88,7 @@ export class ProductListComponent implements OnInit {
       document.getElementById("product-list-wrapper")?.appendChild(cardElement); //? because it could be null
 
       //document.getElementById("product:" + p.id)?.appendChild(imgElement); //? because it could be null
-  });
+    });
   }
 
   /**
@@ -111,63 +112,85 @@ export class ProductListComponent implements OnInit {
     this.products.remove("product:"+id);
     this.removeProductFromDisplay(id);
 
-    (await this.fetcherService.deleteProduct(id)).subscribe();
+    await this.fetcherService.deleteProduct(id).toPromise();
   }
 
-  public processProductJson(j: any): void{
+  public async processProductJson(j: any): Promise<void>{
     var json: string = JSON.stringify(j);
     var pJson =  JSON.parse(json);
     //console.log(pJson.name + " | " + pJson.isOnSale)
     var p: Product = new Product(pJson.url, pJson.name, pJson.price, pJson.imgUrl, pJson.id, pJson.isOnSale);
     //this.products = this.products.concat(p);//Add to products list
     this.products.put("product:"+p.id, p);
-    //console.log("Num Products: " + this.products.length);      
   }
 
   /**
    * Loads all products from DB
    */
-  public async loadProducts(): Promise<void>{
-    this.products = new HashTable<string, Product>();;//Clear current products list;
-    var res = this.fetcherService.getAllProducts()
-    ;(await res).subscribe(response =>{
-      var tempString: string = JSON.stringify(response);
-      var productListJSON =  JSON.parse(tempString);
+  public async loadProducts(): Promise<boolean>{
+    // this.products = new HashTable<string, Product>();//Clear current products list;
+    // var res = await this.fetcherService.getAllProducts();
+    // (await res).subscribe(async response =>{
+    //   var tempString: string = JSON.stringify(response);
+    //   var productListJSON =  JSON.parse(tempString);
 
-      //console.log("TYPE: " + typeof(productListJSON));
-      //console.log(Object.keys(productListJSON).length);
-      //console.log(Object.keys(productListJSON).find(k => productListJSON[k].index === 1));
-      //console.log(Object.values(productListJSON).forEach(pJson => console.log(pJson)));
+    //   for(const j of Object.values(productListJSON)){
+    //     await this.processProductJson(j);
+    //   }
+    // });
+    // console.log("!" + this.products.getAll().length);
+    // Promise.resolve();
+    // return true;
 
-      Object.values(productListJSON).forEach(pJson => {
-        //console.log(pJson)
-        this.processProductJson(pJson);
-      });
-    });
+    this.products = new HashTable<string, Product>();//Clear current products list;
+    var res = await this.fetcherService.getAllProducts().toPromise();
+    var tempString: string = JSON.stringify(res);
+    var productListJSON =  JSON.parse(tempString);
+
+    for(const j of Object.values(productListJSON)){
+      await this.processProductJson(j);
+    }
+    Promise.resolve();
+    return true;
   }
 
   /**
    * Called by event emitted from add-product-component to submit a product url to the backend.
    * @param url 
    */
-  registerProduct(url: string): void{
+  async registerProduct(url: string): Promise<void>{
     //console.log("REGISTER PRODUCT: " + url);
-
-    //VERIFY PRODUCT FIRST
     try {
       if((url.includes(".com") || url.includes(".net") || url.includes(".org") || url.includes(".gov") || url.includes(".edu") || url.includes(".co") || url.includes(".uk")) && url.includes("http")){
-        this.fetcherService.giveAmazonProduct(new Product(url, "", -1.0, "", -1, 0));
+        await this.fetcherService.giveAmazonProduct(new Product(url, "", -1.0, "", -1, 0)).toPromise();
       }
     } catch (error) {
       console.log(error);
     }
+
+    this.loadAndDisplay();
+  }
+
+  public productsLength(): void{
+    console.log("Num products: " + this.products.getAll().length);
+  }
+
+  async loadAndDisplay(): Promise<void>{
+    console.log("loadAndDisplay() CALLED");
+    await this.loadProducts();
+    this.displayProductsInList();
   }
 
   static copyLink(url: string): void{
     this.clipboardApi.copyFromContent(url);
   }
 
+  ngAfterViewInit(){
+    this.loadAndDisplay();
+  }
+
   ngOnInit(): void{
+    
   }
 
 }

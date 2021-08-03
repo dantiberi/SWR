@@ -1,5 +1,5 @@
 button{
-    background-color: aquamarine;
+    background-color: #45ffba;
     margin: 1em;
 }
 
@@ -10,22 +10,23 @@ button{
     width: 60%;
     min-width: min-content;
     height: fit-content;
-
+    
     //https://grid.layoutit.com/?id=KjLXmUg
     display: grid; 
-    grid-template-columns: 0.8fr 0.8fr 1.4fr; 
+    grid-template-columns: 0.8fr 0.8fr 0.8fr; 
     grid-template-rows: 0.2fr 1fr 0.2fr; 
     gap: 1em 1em; 
     grid-template-areas: 
         "product-name product-name product-name"
         "product-img product-img product-img"
-        "product-link product-remove product-price"; 
+        "product-link product-price product-remove"; 
+    justify-items: center;
 }
 
 :host::ng-deep .product-img{
     grid-area: product-img;
-    max-width: 10em;
-    max-height: 10em;
+    max-width: 12em;
+    max-height: 12em;
     box-shadow: 3px 3px 10px black;
     border-radius: 10px;
 }
@@ -39,7 +40,7 @@ button{
 }
 :host::ng-deep .product-link:active{
     box-shadow: 3px 3px 10px black;
-    background-color: aquamarine;
+    background-color: #45ffba;
 }
 
 :host::ng-deep .product-remove{
@@ -55,19 +56,18 @@ button{
     color: #CC252C;
 }
 
-:host::ng-deep .product-name{ 
-    grid-area: product-name; 
-    font-size: 1.3em;
-}
-
 :host::ng-deep .product-price{ 
     grid-area: product-price; 
-    text-align: center;
     font-weight: 550;
 }
 
 :host::ng-deep .price-on-sale{ 
-    color:aquamarine;
+    color:#45ffba;
+}
+
+:host::ng-deep .product-name{ 
+    grid-area: product-name; 
+    font-size: 1.3em;
 }
 
 :host::ng-deep h3{ 
@@ -76,5 +76,6 @@ button{
 
 :host::ng-deep .product-card-element{
     margin: 1em;
+    justify-content: center;
 }
 
