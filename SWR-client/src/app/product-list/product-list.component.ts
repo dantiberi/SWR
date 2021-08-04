@@ -68,6 +68,7 @@ export class ProductListComponent implements OnInit {
 
       var removeButtonIcon = document.createElement("mat-icon");
       removeButtonIcon.innerText="delete";
+      removeButtonIcon.setAttribute("class", "mat-icon material-icons");
       removeButtonElement.appendChild(removeButtonIcon);
 
       var priceElement = document.createElement("h3");

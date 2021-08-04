@@ -1,0 +1,17 @@
+.footer-wrapper{
+    background-color: #8F92B9;
+    margin: 1rem;
+    min-width: fit-content;
+    border-radius: 10px;
+    box-sizing:border-box;
+}
+ol {
+    display: flex;
+    justify-content: space-evenly;
+    list-style-type: none;
+}
+li{
+    color: white;
+    padding: 0.5em;
+    font-size: 1em;
+}

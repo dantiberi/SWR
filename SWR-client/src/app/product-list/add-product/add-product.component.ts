@@ -17,7 +17,8 @@ export class AddProductComponent implements OnInit {
   buttonClicked(): void{
     //console.log("BUTTON CLICKED");
     //console.log(this.productURL.value);
-    this.addButtonClicked.emit(this.productURL.value);
+    if(this.productURL.value != "")
+      this.addButtonClicked.emit(this.productURL.value);
   }
 
   ngOnInit(): void {

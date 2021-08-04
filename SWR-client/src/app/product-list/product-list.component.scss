@@ -27,7 +27,7 @@ button{
     grid-area: product-img;
     max-width: 12em;
     max-height: 12em;
-    box-shadow: 3px 3px 10px black;
+    box-shadow: 3px 3px 10px #292929;
     border-radius: 10px;
 }
 
@@ -46,14 +46,14 @@ button{
 :host::ng-deep .product-remove{
     grid-area: product-remove;
     color: white;
-    background-color: #CC252C;
+    background-color: #FF458A;
     width: fit-content;
     height: fit-content;
 }
 :host::ng-deep .product-remove:active{
-    box-shadow: 3px 3px 10px black;
+    box-shadow: 3px 3px 10px #292929;
     background-color: white;
-    color: #CC252C;
+    color: #FF458A;
 }
 
 :host::ng-deep .product-price{ 
@@ -77,3 +77,10 @@ button{
     align-self: center;
 }
 
+:host::ng-deep mat-icon{
+    vertical-align: middle;
+}
+
+:host::ng-deep button{
+    box-shadow: 2px 2px 5px #292929;
+}
