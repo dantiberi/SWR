@@ -26,8 +26,13 @@ export class ProductListComponent implements OnInit {
    */
   public async displayProductsInList(): Promise<void>{
     this.removeAllProductsFromDisplay();//Remove existing elements
-    this.products.forEach((key:string, p:Product) =>{
 
+    var arr: Product[] = this.iterableToArray(this.products); //Needed to reverse.
+    arr = arr.reverse();
+    console.log(arr);
+    //this.products.forEach((key:string, p:Product) =>{
+    arr.forEach((p: Product) => {
+      
       var cardElement = document.createElement("mat-card");
       cardElement.setAttribute("id", "product:" + p.id);
       cardElement.setAttribute("class", "mat-card mat-focus-indicator");
@@ -81,6 +86,14 @@ export class ProductListComponent implements OnInit {
 
       //document.getElementById("product:" + p.id)?.appendChild(imgElement); //? because it could be null
     });
+  }
+
+  public iterableToArray(hash: HashTable<string, Product>): Product[]{
+    var out: Product[] = [];
+    for(var i = 0; i< hash.getKeys().length; i++){
+      out = out.concat(hash.get(hash.getKeys()[i]));
+    }
+    return out;
   }
 
   /**
