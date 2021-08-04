@@ -13,26 +13,17 @@ export class ProductListComponent implements OnInit {
 
 
   private fetcherService: FetcherService; 
-  //public products: Product[] = [];
   public products: HashTable<string, Product> = new HashTable<string, Product>();
   public static clipboardApi: ClipboardService;
 
   constructor(fetcherService: FetcherService, clipboardApi: ClipboardService){
-    //fetcherService.getTestProdcut("https://www.amazon.com/Apple-AirPods-Charging-Latest-Model/dp/B07PXGQC1Q/ref=sr_1_1_sspa?dchild=1&keywords=airpods&qid=1627507012&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExQ1BLQUwwTU9EU1VBJmVuY3J5cHRlZElkPUEwMzUyMTQxMVlDQkZPREZROElQMiZlbmNyeXB0ZWRBZElkPUEwMzA4NzczMkMyM1hTQVYyRjFMVyZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=").subscribe(response => {
-    //var testProduct = new Product("https://www.amazon.com/JBL-Waterproof-Portable-Bluetooth-Speaker/dp/B07QK18BNY/?_encoding=UTF8&pd_rd_w=BD46g&pf_rd_p=620e7d0f-07bf-4434-8cbc-ed3abf0cf403&pf_rd_r=654DDX2X8RMC2QF9E003&pd_rd_r=aa8a8adb-73ef-47c9-ab0f-9c6569c95f3b&pd_rd_wg=BVpaF&ref_=pd_gw_ci_mcx_mr_hp_d", "", 0);  
-    //fetcherService.giveAmazonProduct(testProduct);
-    //console.log(fetcherService.getProduct(2));
     this.fetcherService = fetcherService;
     ProductListComponent.clipboardApi = clipboardApi;
   }
   
-  public async loadTestProduct(id: number): Promise<void>{
-    var res = this.fetcherService.getProduct(id)
-    ;(await res).subscribe(response =>{     
-      this.processProductJson(response);
-    });
-  }
-
+  /**
+   * Processes each product in the products list into elements and adds them to the document. 
+   */
   public async displayProductsInList(): Promise<void>{
     this.removeAllProductsFromDisplay();//Remove existing elements
     this.products.forEach((key:string, p:Product) =>{
@@ -104,11 +95,20 @@ export class ProductListComponent implements OnInit {
     }
   }
 
+  /**
+   * Removes a product with the given id from the document.
+   * @param id Product with this id to be removed.
+   */
   public removeProductFromDisplay(id: number): void{
     //console.log("product:" + id);
     document.getElementById("product:" + id)?.remove();
   }
   
+  /**
+   * Function to respond to the delete button being clicked on a product card.
+   * Calls for the product to be removed from the products list and the document.
+   * @param id Product with this id to be removed.
+   */
   public async removeProductButton(id: number){
     this.products.remove("product:"+id);
     this.removeProductFromDisplay(id);
@@ -126,23 +126,9 @@ export class ProductListComponent implements OnInit {
   }
 
   /**
-   * Loads all products from DB
+   * Loads all products from the server-side database into the products hashtable.
    */
   public async loadProducts(): Promise<boolean>{
-    // this.products = new HashTable<string, Product>();//Clear current products list;
-    // var res = await this.fetcherService.getAllProducts();
-    // (await res).subscribe(async response =>{
-    //   var tempString: string = JSON.stringify(response);
-    //   var productListJSON =  JSON.parse(tempString);
-
-    //   for(const j of Object.values(productListJSON)){
-    //     await this.processProductJson(j);
-    //   }
-    // });
-    // console.log("!" + this.products.getAll().length);
-    // Promise.resolve();
-    // return true;
-
     this.products = new HashTable<string, Product>();//Clear current products list;
     var res = await this.fetcherService.getAllProducts().toPromise();
     var tempString: string = JSON.stringify(res);
@@ -157,7 +143,7 @@ export class ProductListComponent implements OnInit {
 
   /**
    * Called by event emitted from add-product-component to submit a product url to the backend.
-   * @param url 
+   * @param url Link for the product to be added.
    */
   async registerProduct(url: string): Promise<void>{
     //console.log("REGISTER PRODUCT: " + url);
@@ -172,22 +158,33 @@ export class ProductListComponent implements OnInit {
     this.loadAndDisplay();
   }
 
+  /**
+   * Debug function used to retrieve the number of elemtns in the the products hashtable.
+   */
   public productsLength(): void{
     console.log("Num products: " + this.products.getAll().length);
   }
 
+  /**
+   * Calls for the products to be both loaded from the server database into the products hashtable and
+   * render them to the document. 
+   */
   async loadAndDisplay(): Promise<void>{
-    console.log("loadAndDisplay() CALLED");
+    //console.log("loadAndDisplay() CALLED");
     await this.loadProducts();
     this.displayProductsInList();
   }
 
+  /**
+   * Copies the given string, in this case a URL, to the clipboard.
+   * @param url String to be copied.
+   */
   static copyLink(url: string): void{
     this.clipboardApi.copyFromContent(url);
   }
 
   ngAfterViewInit(){
-    this.loadAndDisplay();
+    this.loadAndDisplay(); //Makes sure the products are loaded and displayed at startup.
   }
 
   ngOnInit(): void{
