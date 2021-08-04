@@ -1,10 +1,19 @@
 <div class="add-product-form-wrapper">
     <h3>Add Product</h3>
-    <mat-form-field class="add-product-form-element">
-        <input matInput matNativeControl placeholder="Enter Url..." [formControl]="productURL">
-    </mat-form-field>
-    
-    <button mat-button (click)="buttonClicked()" class="add-product-form-element">
-        <mat-icon>add</mat-icon>
-    </button>    
+    <div class="add-field-wrapper">
+        <mat-form-field class="add-product-form-element">
+            <input matInput matNativeControl placeholder="Enter Url..." [formControl]="productURL">
+        </mat-form-field>
+        
+        <button mat-button (click)="buttonClicked()" class="add-product-form-element add-product-form-field">
+            <mat-icon>add</mat-icon>
+        </button>    
+    </div>
+    <mat-progress-bar
+          class="add-progress-bar"
+          [color]="color"
+          mode="determinate"
+          [value]="value"
+          [bufferValue]="bufferValue">
+    </mat-progress-bar>
 </div>

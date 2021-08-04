@@ -3,6 +3,8 @@ import { FetcherService } from '../fetcher.service';
 import { Product } from '../ts/product';
 import { ClipboardService } from 'ngx-clipboard';
 import { HashTable } from 'angular-hashtable'; //https://github.com/brutalchrist/angular-hashtable
+import { ThemePalette } from '@angular/material/core';
+import { ProgressBarMode } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-product-list',
@@ -162,7 +164,9 @@ export class ProductListComponent implements OnInit {
     //console.log("REGISTER PRODUCT: " + url);
     try {
       if((url.includes(".com") || url.includes(".net") || url.includes(".org") || url.includes(".gov") || url.includes(".edu") || url.includes(".co") || url.includes(".uk")) && url.includes("http")){
+        document.getElementsByClassName("add-progress-bar")[0].setAttribute("mode", "indeterminate")
         await this.fetcherService.giveAmazonProduct(new Product(url, "", -1.0, "", -1, 0)).toPromise();
+        document.getElementsByClassName("add-progress-bar")[0].setAttribute("mode", "determinate")
       }
     } catch (error) {
       console.log(error);
