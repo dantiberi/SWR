@@ -1,13 +1,16 @@
 .header-wrapper{
-    background-color: #8F92B9;
+    //background-color: #8F92B9;
     width: 60%;
     margin: 0 auto;
     min-width: fit-content;
     border-radius: 10px;
     box-sizing:border-box;
+    background: rgb(163,34,195);
+    background: linear-gradient(13deg, rgba(163,34,195,1) 0%, rgba(255,88,119,1) 48%, rgba(253,223,45,1) 100%);
 }
 h1{
     color: white;
     padding: 0.5em;
-    
+    text-align: center;
+    font-size: 2.25em;
 }
