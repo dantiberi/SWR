@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BkqSF8TlcEzQDMsjTrabpGPQROy6zxci+HTWnVqICwhZmh8wwnBy+16L4pwJS4pAdjwyByslyxDFdeZAx23HDQ==",
+  "dgSpecHash": "oodSGTTYQqroKqiiHeV4S0fe5Mn+cdZGSpAU4lZJ0iFNfjQriol0KCfP6bYDxMZzAAuskPLqlw90wOePqCHR5A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\dan.tiberi\\Code Playground\\ShoppingWarRoom\\SWR-server\\SWR-server\\SWR-server.csproj",
+  "projectFilePath": "C:\\Users\\dan.tiberi\\Code Playground\\ShoppingWarRoom\\SWR\\SWR-server\\SWR-server\\SWR-server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dan.tiberi\\.nuget\\packages\\docfx\\2.58.0\\docfx.2.58.0.nupkg.sha512",
     "C:\\Users\\dan.tiberi\\.nuget\\packages\\docfx.console\\2.58.0\\docfx.console.2.58.0.nupkg.sha512",
