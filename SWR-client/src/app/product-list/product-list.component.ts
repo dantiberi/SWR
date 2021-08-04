@@ -75,7 +75,7 @@ export class ProductListComponent implements OnInit {
       priceElement.innerText = "$" + p.price;
       if(p.isOnSale == 1){
         priceElement.setAttribute("class", priceElement.getAttribute("class") + " price-on-sale");
-        priceElement.innerText = "On Sale: " + priceElement.innerText;
+        priceElement.innerText = "Discounted: " + priceElement.innerText;
         //console.log("PRODUCT ON SALE!")
       }
 

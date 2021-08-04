@@ -58,11 +58,12 @@ button{
 
 :host::ng-deep .product-price{ 
     grid-area: product-price; 
-    font-weight: 550;
+    font-size: 1.5rem;
 }
 
 :host::ng-deep .price-on-sale{ 
     color:#45ffba;
+    text-align: center;
 }
 
 :host::ng-deep .product-name{ 
@@ -70,12 +71,9 @@ button{
     font-size: 1.3em;
 }
 
-:host::ng-deep h3{ 
-    width: initial;
-}
-
 :host::ng-deep .product-card-element{
     margin: 1em;
     justify-content: center;
+    align-self: center;
 }
 
