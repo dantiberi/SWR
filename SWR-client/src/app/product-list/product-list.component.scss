@@ -8,26 +8,28 @@ button{
     margin: 0 auto;
     margin-bottom: 1rem;
     border-radius: 10px;
-    width: 60%;
-    min-width: min-content;
     height: fit-content;
     
     //https://grid.layoutit.com/?id=KjLXmUg
     display: grid; 
     grid-template-columns: 0.8fr 0.8fr 0.8fr; 
     grid-template-rows: 0.2fr 1fr 0.2fr; 
-    gap: 1em 1em; 
+    //gap: 1em 1em; 
     grid-template-areas: 
         "product-name product-name product-name"
         "product-img product-img product-img"
         "product-link product-price product-remove"; 
     justify-items: center;
+    max-width: 60%;
+    width: 60%;
+    min-width: min-content;
 }
 
 :host::ng-deep .product-img{
     grid-area: product-img;
     max-width: 12em;
-    max-height: 12em;
+    width: 27vw;
+    height: auto;
     box-shadow: 3px 3px 10px #292929;
     border-radius: 10px;
 }
