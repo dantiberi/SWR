@@ -1,19 +1,32 @@
 button {
     background-color: #45ffba;
     color: #292929;
+    width: 10%;
 }
+
 button:active {
     background-color: white;
     color: #FF458A;
 }
 
+.add-field-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    justify-content: center;
+    width: -webkit-fill-available;
+}
+
 .add-product-form-wrapper{
     background-color: #8F92B9;
+    display: flex;
+    flex-direction: column;
     width: 60%;
     min-width: fit-content;
     margin: 0 auto;
     margin-bottom: 1rem;
     border-radius: 10px;
+    align-items: center;
 }
 
 .add-product-form-element{
@@ -21,7 +34,7 @@ button:active {
 }
 
 mat-form-field {
-    width: 65%;
+    width: 70%;
 }
 
 h3{
@@ -29,4 +42,29 @@ h3{
     padding-left: 1em;
     padding-top: 1em;
     margin-bottom: -1em;
+}
+
+.add-progress-bar{
+    margin-bottom: 1rem;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    // background: rgb(255,63,249);
+    // background: linear-gradient(225deg, rgba(255,63,249,1) 0%, rgba(27,208,255,1) 54%, rgba(0,63,255,1) 100%);
+
+    background: rgb(163,34,195);
+    background: linear-gradient(13deg, rgba(255,203,224,1) 0%, rgba(163,34,195,1) 35%, rgba(255,88,119,1) 48%, rgba(253,223,45,1) 100%);
+}
+
+::ng-deep .mat-progress-bar-buffer {
+    //background: #E4E8EB;
+    background: rgb(255,244,178);
+    background: linear-gradient(225deg, rgba(255,244,178,1) 0%, rgba(255,201,177,1) 33%, rgba(255,204,216,1) 55%, rgba(255,203,224,1) 67%);
+}
+
+::ng-deep .mat-progress-bar {
+    border-radius: 2px;
 }

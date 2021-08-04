@@ -116,3 +116,5 @@ C:\Users\dan.tiberi\Code Playground\ShoppingWarRoom\SWR\SWR-server\SWR-server\ob
 C:\Users\dan.tiberi\Code Playground\ShoppingWarRoom\SWR\SWR-server\SWR-server\obj\Debug\net5.0\ref\SWR-server.dll
 C:\Users\dan.tiberi\Code Playground\ShoppingWarRoom\SWR\SWR-server\SWR-server\obj\Debug\net5.0\SWR-server.pdb
 C:\Users\dan.tiberi\Code Playground\ShoppingWarRoom\SWR\SWR-server\SWR-server\obj\Debug\net5.0\SWR-server.genruntimeconfig.cache
+C:\Users\dan.tiberi\Code Playground\ShoppingWarRoom\SWR\SWR-server\SWR-server\bin\Debug\net5.0\_site\manifest.json
+C:\Users\dan.tiberi\Code Playground\ShoppingWarRoom\SWR\SWR-server\SWR-server\bin\Debug\net5.0\_site\search-stopwords.json

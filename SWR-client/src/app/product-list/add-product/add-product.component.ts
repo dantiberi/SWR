@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressBarMode } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-add-product',
@@ -11,6 +13,11 @@ export class AddProductComponent implements OnInit {
   productURL = new FormControl('');
 
   @Output() addButtonClicked = new EventEmitter();
+
+   //Settings for progres bar.
+   color: ThemePalette = 'primary';
+   value = 100;
+   bufferValue = 100;
   
   constructor() { }
 
