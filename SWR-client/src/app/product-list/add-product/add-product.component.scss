@@ -68,3 +68,33 @@ h3{
 ::ng-deep .mat-progress-bar {
     border-radius: 2px;
 }
+
+//Only for under 501
+@media only screen and (max-width: 650px) {
+    .add-product-form-wrapper{
+        width: 95%;
+        min-width: 95%;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    .add-field-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    mat-form-field {
+        width: 90%;
+    }
+    
+    .add-product-form-element{
+        margin: 0em;
+        margin-bottom: 1em;
+    }
+
+    button {
+        width: 90%;
+    }
+}

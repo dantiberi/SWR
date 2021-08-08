@@ -1,9 +1,11 @@
-.footer-wrapper{
+.footer-wrapper {
     background-color: #8F92B9;
     margin: 0 auto;
-    min-width: fit-content;
     border-radius: 10px;
     box-sizing:border-box;
+    width: 95%;
+    
+    margin-top: auto;
 }
 ol {
     display: flex;
@@ -13,5 +15,19 @@ ol {
 li{
     color: white;
     padding: 0.5em;
-    font-size: 1em;
+}
+
+@media only screen and (max-width: 650px) {
+    .footer-wrapper {
+        align-content: center;
+    }
+    ol {
+        flex-direction: column;
+        align-items: center;
+        padding-inline-start: 0%;
+    }
+    li {
+        color: white;
+        padding: 0.1em;
+    }
 }
