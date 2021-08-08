@@ -5,14 +5,12 @@
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
-    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\dan.tiberi\.nuget\packages\;C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages;C:\Program Files (x86)\Microsoft\Xamarin\NuGet\</NuGetPackageFolders>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\danny\.nuget\packages\</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
     <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">5.10.0</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <SourceRoot Include="C:\Users\dan.tiberi\.nuget\packages\" />
-    <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
-    <SourceRoot Include="C:\Program Files (x86)\Microsoft\Xamarin\NuGet\" />
+    <SourceRoot Include="C:\Users\danny\.nuget\packages\" />
   </ItemGroup>
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -23,10 +21,10 @@
     <Import Project="$(NuGetPackageRoot)swashbuckle.aspnetcore\5.6.3\build\Swashbuckle.AspNetCore.props" Condition="Exists('$(NuGetPackageRoot)swashbuckle.aspnetcore\5.6.3\build\Swashbuckle.AspNetCore.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgEntityFramework Condition=" '$(PkgEntityFramework)' == '' ">C:\Users\dan.tiberi\.nuget\packages\entityframework\6.4.4</PkgEntityFramework>
-    <PkgSystem_Data_SQLite_EF6 Condition=" '$(PkgSystem_Data_SQLite_EF6)' == '' ">C:\Users\dan.tiberi\.nuget\packages\system.data.sqlite.ef6\1.0.114</PkgSystem_Data_SQLite_EF6>
-    <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">C:\Users\dan.tiberi\.nuget\packages\microsoft.extensions.apidescription.server\3.0.0</PkgMicrosoft_Extensions_ApiDescription_Server>
-    <PkgNewtonsoft_Json Condition=" '$(PkgNewtonsoft_Json)' == '' ">C:\Users\dan.tiberi\.nuget\packages\newtonsoft.json\10.0.1</PkgNewtonsoft_Json>
-    <Pkgdocfx_console Condition=" '$(Pkgdocfx_console)' == '' ">C:\Users\dan.tiberi\.nuget\packages\docfx.console\2.58.0</Pkgdocfx_console>
+    <PkgEntityFramework Condition=" '$(PkgEntityFramework)' == '' ">C:\Users\danny\.nuget\packages\entityframework\6.4.4</PkgEntityFramework>
+    <PkgSystem_Data_SQLite_EF6 Condition=" '$(PkgSystem_Data_SQLite_EF6)' == '' ">C:\Users\danny\.nuget\packages\system.data.sqlite.ef6\1.0.114</PkgSystem_Data_SQLite_EF6>
+    <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">C:\Users\danny\.nuget\packages\microsoft.extensions.apidescription.server\3.0.0</PkgMicrosoft_Extensions_ApiDescription_Server>
+    <PkgNewtonsoft_Json Condition=" '$(PkgNewtonsoft_Json)' == '' ">C:\Users\danny\.nuget\packages\newtonsoft.json\10.0.1</PkgNewtonsoft_Json>
+    <Pkgdocfx_console Condition=" '$(Pkgdocfx_console)' == '' ">C:\Users\danny\.nuget\packages\docfx.console\2.58.0</Pkgdocfx_console>
   </PropertyGroup>
 </Project>

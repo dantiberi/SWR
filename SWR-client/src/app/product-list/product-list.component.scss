@@ -12,8 +12,8 @@ button{
     
     //https://grid.layoutit.com/?id=KjLXmUg
     display: grid; 
-    grid-template-columns: 0.8fr 0.8fr 0.8fr; 
-    grid-template-rows: 0.2fr 1fr 0.2fr; 
+    grid-template-columns: 1/3fr 1/3fr 1/3fr; 
+    grid-template-rows: 0.2fr 0.6fr 0.2fr; 
     //gap: 1em 1em; 
     grid-template-areas: 
         "product-name product-name product-name"
@@ -27,8 +27,8 @@ button{
 
 :host::ng-deep .product-img{
     grid-area: product-img;
-    max-width: 12em;
-    width: 27vw;
+    width: auto;
+    max-width: 30%;
     height: auto;
     box-shadow: 3px 3px 10px #292929;
     border-radius: 10px;
@@ -38,7 +38,6 @@ button{
     grid-area: product-link;
     color: black;
     background-color: white;
-    width: fit-content;
     height: fit-content;
 }
 :host::ng-deep .product-link:active{
@@ -50,7 +49,6 @@ button{
     grid-area: product-remove;
     color: white;
     background-color: #FF458A;
-    width: fit-content;
     height: fit-content;
 }
 :host::ng-deep .product-remove:active{
@@ -86,4 +84,50 @@ button{
 
 :host::ng-deep button{
     box-shadow: 2px 2px 5px #292929;
+    min-width: fit-content;
+}
+
+@media only screen and (max-width: 650px) {
+    :host::ng-deep mat-card {
+        width: 95%;
+        max-width: 95%;
+        min-width: unset;
+        grid-template-columns: 33vw 33vw 33vw; 
+    }
+
+    :host::ng-deep .product-price{ 
+        grid-area: product-price; 
+        font-size: 1.25rem;
+    }
+
+    :host::ng-deep .product-img{
+        max-width: 12em;
+        width: 27vw;
+    }
+
+    :host::ng-deep .product-img{
+        max-width: 50%;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    :host::ng-deep mat-card {
+        width: 95%;
+        max-width: 95%;
+        min-width: unset;
+        display: flex;
+        flex-direction: column;
+    }
+    :host::ng-deep .product-card-element{
+        margin: 0em;
+        margin-bottom: 1em;
+    }
+
+    :host::ng-deep .product-name{ 
+        margin: 1em;
+    }
+
+    :host::ng-deep .product-img{
+        max-width: 90%;
+    }
 }

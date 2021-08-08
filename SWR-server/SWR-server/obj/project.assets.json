@@ -6751,28 +6751,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dan.tiberi\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\danny\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dan.tiberi\\Code Playground\\ShoppingWarRoom\\SWR\\SWR-server\\SWR-server\\SWR-server.csproj",
+      "projectUniqueName": "C:\\Users\\danny\\CodePlayground\\SWR\\SWR-server\\SWR-server\\SWR-server.csproj",
       "projectName": "SWR-server",
-      "projectPath": "C:\\Users\\dan.tiberi\\Code Playground\\ShoppingWarRoom\\SWR\\SWR-server\\SWR-server\\SWR-server.csproj",
-      "packagesPath": "C:\\Users\\dan.tiberi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dan.tiberi\\Code Playground\\ShoppingWarRoom\\SWR\\SWR-server\\SWR-server\\obj\\",
+      "projectPath": "C:\\Users\\danny\\CodePlayground\\SWR\\SWR-server\\SWR-server\\SWR-server.csproj",
+      "packagesPath": "C:\\Users\\danny\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\danny\\CodePlayground\\SWR\\SWR-server\\SWR-server\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\dan.tiberi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\danny\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -6842,7 +6834,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   },
