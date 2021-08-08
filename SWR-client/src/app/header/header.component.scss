@@ -14,3 +14,10 @@ h1{
     text-align: center;
     font-size: 2.25em;
 }
+
+//Only for under 501
+@media only screen and (max-width: 501px) {
+    .header-wrapper{
+        width: 95%;
+    }
+  }
