@@ -70,6 +70,7 @@ button{
 :host::ng-deep .product-name{ 
     grid-area: product-name; 
     font-size: 1.3em;
+    padding-right: 1em;
 }
 
 :host::ng-deep .product-card-element{
