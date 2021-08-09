@@ -179,3 +179,5 @@ C:\Users\danny\CodePlayground\SWR\SWR-server\SWR-server\obj\Debug\net5.0\SWR-ser
 C:\Users\danny\CodePlayground\SWR\SWR-server\SWR-server\obj\Debug\net5.0\SWR-server.genruntimeconfig.cache
 C:\Users\danny\CodePlayground\SWR\SWR-server\SWR-server\bin\Debug\net5.0\_site\manifest.json
 C:\Users\danny\CodePlayground\SWR\SWR-server\SWR-server\bin\Debug\net5.0\_site\search-stopwords.json
+C:\Users\danny\CodePlayground\SWR\SWR-server\SWR-server\bin\Debug\net5.0\_site\package-lock.json
+C:\Users\danny\CodePlayground\SWR\SWR-server\SWR-server\bin\Debug\net5.0\_site\package.json

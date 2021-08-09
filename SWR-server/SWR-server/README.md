@@ -12,7 +12,8 @@
 1. DocFX
     *[DocFX Site]{https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html, "DocFX Site"}
     *Documentation generated to _site folder upon build.
-    *Use http-server to view.
+    *Use http-server to view. 'npm install http-server' then 'http-server -o index.html'
+       
 
 
 ##Useful Links:
