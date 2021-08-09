@@ -26,7 +26,7 @@ namespace SWR_server.Controllers
 
             amz.start(amzProduct.url);
 
-            Program.db.addProduct(DB.conn, amz.url, amz.name, amz.price, amz.productImg, amz.isOnSale);
+            Program.db.AddProduct(DB.conn, amz.url, amz.name, amz.price, amz.productImg, amz.isOnSale);
             //Program.db.printProductTable(DB.conn);
             string res = JsonConvert.SerializeObject(amz);
 
@@ -49,7 +49,7 @@ namespace SWR_server.Controllers
         [Route("LastProduct/")]
         public string LastProduct()
         {
-            return Program.db.getLastInsertedProductId(DB.conn).ToString();
+            return Program.db.GetLastInsertedProductId(DB.conn).ToString();
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace SWR_server.Controllers
         {
             //System.Diagnostics.Debug.WriteLine("!!!!! getProduct CALLED");
             //System.Diagnostics.Debug.WriteLine(Program.db.getJsonOfProduct(DB.conn, id));
-            return Program.db.getJsonOfProduct(DB.conn, id);
+            return Program.db.GetJsonOfProduct(DB.conn, id);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace SWR_server.Controllers
         [Route("GetAllProducts/")]
         public string getAllProducts()
         {
-            return Program.db.getAllProductsInJson(DB.conn);
+            return Program.db.GetAllProductsInJson(DB.conn);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace SWR_server.Controllers
         public IActionResult removeProduct(int id)
         {
             //System.Diagnostics.Debug.WriteLine("DELETE CALLED ON PRODUCT " + id);
-            Program.db.removeProduct(DB.conn, id);
+            Program.db.RemoveProduct(DB.conn, id);
             //return "Product " + id + " has successfully been deleted";
             return Ok("{Product " + id + " has successfully been deleted}");
         }

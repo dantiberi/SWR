@@ -19,7 +19,7 @@ namespace SWR_server
             Debug.WriteLine("START");
 
             db = new DB();
-            Debug.WriteLine(db.getJsonOfProduct(DB.conn, 22));
+            Debug.WriteLine(db.GetJsonOfProduct(DB.conn, 22));
 
             CreateHostBuilder(args).Build().Run();
         }
