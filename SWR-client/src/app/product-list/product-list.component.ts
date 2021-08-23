@@ -138,6 +138,9 @@ export class ProductListComponent implements OnInit {
       data: {
         product: product,
       },
+    }).afterClosed()
+    .subscribe(response => {
+      console.log(response);
     });
   }
 

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Product } from 'src/app/ts/product';
 import { ProductListComponent } from '../product-list.component';
 
@@ -10,8 +10,9 @@ import { ProductListComponent } from '../product-list.component';
 })
 export class ProductInfoComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {product: Product}) { 
+  constructor(public dialogRef: MatDialogRef<ProductInfoComponent>, @Inject(MAT_DIALOG_DATA) public data: {product: Product}) { 
     console.log("Info: " + data.product.name);
+    this.dialogRef.close({ data: 'data' });
   }
 
   ngOnInit(): void {
