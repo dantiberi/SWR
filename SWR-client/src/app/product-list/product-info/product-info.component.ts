@@ -26,11 +26,11 @@ export class ProductInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var name = document.createElement("li");
+    var name = document.createElement("h4");
     name.innerText = this.data.product.name;
     document.getElementById("product-info-list")?.appendChild(name);
 
-    var wip = document.createElement("li");
+    var wip = document.createElement("h4");
     wip.innerText = "TODO: More detailed info here.";
     document.getElementById("product-info-list")?.appendChild(wip);
     //console.log(document.getElementById("product-info-list"));
