@@ -63,7 +63,7 @@ export class ProductListComponent implements OnInit {
       removeButtonElement.setAttribute("mat-button", "");
       removeButtonElement.setAttribute("_ngcontent-hgy-c46","");
       //linkButtonElement.setAttribute("(click)", "copyLink(" + p.url + ")");
-      removeButtonElement.addEventListener('click', (e) => {this.productInfoButton()} );
+      removeButtonElement.addEventListener('click', (e) => {this.productInfoButton(p)} );
       removeButtonElement.setAttribute("class", "product-info mat-focus-indicator mat-button mat-button-base product-card-element");
 
       var removeButtonIcon = document.createElement("mat-icon");
@@ -133,8 +133,12 @@ export class ProductListComponent implements OnInit {
     await this.fetcherService.deleteProduct(id).toPromise();
   }
 
-  public productInfoButton():void{
-    this.dialog.open(ProductInfoComponent);
+  public productInfoButton(product: Product):void{
+    this.dialog.open(ProductInfoComponent,{
+      data: {
+        product: product,
+      },
+    });
   }
 
   public async processProductJson(j: any): Promise<void>{

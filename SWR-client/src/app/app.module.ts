@@ -20,8 +20,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ProductInfoComponent } from './product-list/product-info/product-info.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,12 @@ import { ProductInfoComponent } from './product-list/product-info/product-info.c
     MatProgressBarModule,
     MatDialogModule,
   ],
-  providers: [],
+  providers: [
+    { 
+      provide: MAT_DIALOG_DATA, 
+      useValue: [] 
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
