@@ -5,6 +5,8 @@ import { ClipboardService } from 'ngx-clipboard';
 import { HashTable } from 'angular-hashtable'; //https://github.com/brutalchrist/angular-hashtable
 import { ThemePalette } from '@angular/material/core';
 import { ProgressBarMode } from '@angular/material/progress-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ProductInfoComponent } from './product-info/product-info.component';
 
 @Component({
   selector: 'app-product-list',
@@ -18,7 +20,7 @@ export class ProductListComponent implements OnInit {
   public products: HashTable<string, Product> = new HashTable<string, Product>();
   public static clipboardApi: ClipboardService;
 
-  constructor(fetcherService: FetcherService, clipboardApi: ClipboardService){
+  constructor(public dialog: MatDialog, fetcherService: FetcherService, clipboardApi: ClipboardService){
     this.fetcherService = fetcherService;
     ProductListComponent.clipboardApi = clipboardApi;
   }
@@ -61,11 +63,11 @@ export class ProductListComponent implements OnInit {
       removeButtonElement.setAttribute("mat-button", "");
       removeButtonElement.setAttribute("_ngcontent-hgy-c46","");
       //linkButtonElement.setAttribute("(click)", "copyLink(" + p.url + ")");
-      removeButtonElement.addEventListener('click', (e) => {this.removeProductButton(p.id)} );
-      removeButtonElement.setAttribute("class", "product-remove mat-focus-indicator mat-button mat-button-base product-card-element");
+      removeButtonElement.addEventListener('click', (e) => {this.productInfoButton()} );
+      removeButtonElement.setAttribute("class", "product-info mat-focus-indicator mat-button mat-button-base product-card-element");
 
       var removeButtonIcon = document.createElement("mat-icon");
-      removeButtonIcon.innerText="delete";
+      removeButtonIcon.innerText="info";
       removeButtonIcon.setAttribute("class", "mat-icon material-icons");
       removeButtonElement.appendChild(removeButtonIcon);
 
@@ -129,6 +131,10 @@ export class ProductListComponent implements OnInit {
     this.removeProductFromDisplay(id);
 
     await this.fetcherService.deleteProduct(id).toPromise();
+  }
+
+  public productInfoButton():void{
+    this.dialog.open(ProductInfoComponent);
   }
 
   public async processProductJson(j: any): Promise<void>{

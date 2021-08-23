@@ -51,6 +51,13 @@ button{
     background-color: #FF458A;
     height: fit-content;
 }
+:host::ng-deep .product-info{
+    grid-area: product-remove;
+    color: white;
+    background: rgb(163,34,195);
+    background: linear-gradient(13deg, rgba(163,34,195,1) 0%, rgba(255,88,119,1) 48%, rgba(253,223,45,1) 100%);
+    height: fit-content;
+}
 :host::ng-deep .product-remove:active{
     box-shadow: 3px 3px 10px #292929;
     background-color: white;

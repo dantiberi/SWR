@@ -20,6 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ProductInfoComponent } from './product-list/product-info/product-info.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { FooterComponent } from './footer/footer.component';
     AddProductComponent,
     HeaderComponent,
     FooterComponent,
+    ProductInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import { FooterComponent } from './footer/footer.component';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
