@@ -57,7 +57,7 @@ export class ProductListComponent implements OnInit {
       //linkButtonElement.setAttribute("(click)", "copyLink(" + p.url + ")");
       linkButtonElement.addEventListener('click', (e) => {ProductListComponent.copyLink(p.url)} );
       linkButtonElement.setAttribute("class", "product-link mat-focus-indicator mat-button mat-button-base product-card-element");
-      linkButtonElement.innerText = "Copy Link"
+      linkButtonElement.innerText = "Copy Link";
 
       var removeButtonElement = document.createElement("button");
       removeButtonElement.setAttribute("mat-button", "");
@@ -120,13 +120,12 @@ export class ProductListComponent implements OnInit {
     //console.log("product:" + id);
     document.getElementById("product:" + id)?.remove();
   }
-  
+
   /**
-   * Function to respond to the delete button being clicked on a product card.
-   * Calls for the product to be removed from the products list and the document.
+   * Calls for the product with given id to be removed from the products list and the document.
    * @param id Product with this id to be removed.
    */
-  public async removeProductButton(id: number){
+   public async removeProduct(id: number){
     this.products.remove("product:"+id);
     this.removeProductFromDisplay(id);
 
@@ -140,7 +139,10 @@ export class ProductListComponent implements OnInit {
       },
     }).afterClosed()
     .subscribe(response => {
-      console.log(response);
+      //console.log(response);
+      if(response != null && response.delete == true){
+        this.removeProduct(response.product.id);
+      }
     });
   }
 

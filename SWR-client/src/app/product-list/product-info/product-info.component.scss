@@ -1,0 +1,26 @@
+.product-remove{
+    grid-area: product-remove;
+    color: white;
+    background-color: #FF458A;
+    height: fit-content;
+}
+
+.product-remove:active{
+    box-shadow: 3px 3px 10px #292929;
+    background-color: white;
+    color: #FF458A;
+}
+
+#product-info-list{
+    list-style-type: none;
+}
+
+:host::ng-deep ol li{
+    color: white;
+    margin-bottom: 1em;
+}
+
+.close-dialog{
+    color: rgb(24, 24, 24);
+    background-color: white;
+}
