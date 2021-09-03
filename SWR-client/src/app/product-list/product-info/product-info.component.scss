@@ -1,0 +1,53 @@
+.product-info-wrapper{
+    display: grid; 
+    padding: 1em;
+    grid-template-columns: 1fr 1fr 1fr; 
+    grid-template-rows: 0.2fr 0.6fr 0.2fr; 
+    gap: 1em 1em; 
+    grid-template-areas: 
+      "dialog-title dialog-title dialog-title"
+      "list list list"
+      "close . delete"; 
+    height: 100%;
+    align-items: center;
+    place-items: center;
+}
+
+h3{
+    grid-area: dialog-title;
+    text-decoration: underline;
+}
+
+.product-remove{
+    grid-area: delete;
+    color: white;
+    background-color: #FF458A;
+    height: fit-content;
+}
+
+.product-remove:active{
+    box-shadow: 3px 3px 10px #292929;
+    background-color: white;
+    color: #FF458A;
+}
+
+#product-info-list{
+    list-style-type: none;
+    grid-area: list;
+}
+
+:host::ng-deep h4{
+    color: white;
+    margin-bottom: 1em;
+}
+
+.close-dialog{
+    grid-area: close;
+    color: rgb(24, 24, 24);
+    background-color: white;
+}
+
+.icon-button{
+    height: fit-content;
+    width: 5em;
+}
