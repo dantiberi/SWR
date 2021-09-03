@@ -442,7 +442,35 @@ namespace SWR_server
                 Print("Product with id: " + id + " does not exist.");
                 return false;
             }
-}
+        }
+
+        /// <summary>
+        /// Fetches an array of all amazon urls in the db.
+        /// </summary>
+        /// <param name="conn"></param>
+        /// <returns>string[] of all amazon product urls in the DB.</returns>
+        public string[] GetAmzUrls(SQLiteConnection conn)
+        {
+            if (conn.State == 0)//If closed then open
+                OpenDbConnection();
+
+            try
+            {
+                SQLiteDataReader sqlite_datareader = ExecuteQuery("SELECT url FROM product WHERE url LIKE '%amazon.com%'", conn);
+                List<string> ret = new List<string>();
+                while (sqlite_datareader.Read())
+                {
+                    ret.Add(sqlite_datareader.GetValue(0).ToString());
+                }
+                return ret.ToArray();
+            }
+            catch (Exception e)
+            {
+                Print("Error fetching amazon product urls: " + e);
+                return new string[] { "Error :(" };
+            }
+        }
+
         /// <summary>
         /// Closes the connection to the SQLite database.
         /// </summary>
