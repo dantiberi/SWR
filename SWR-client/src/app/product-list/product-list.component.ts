@@ -138,7 +138,7 @@ export class ProductListComponent implements OnInit {
         product: product,
       },
       width: '50%',
-      height: '60%',
+      height: 'fit-content',
     }).afterClosed()
     .subscribe(response => {
       //console.log(response);
