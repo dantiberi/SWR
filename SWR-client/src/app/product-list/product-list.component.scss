@@ -18,7 +18,7 @@ button{
     grid-template-areas: 
         "product-name product-name product-name"
         "product-img product-img product-img"
-        "product-link product-price product-remove"; 
+        "product-link product-price product-info"; 
     justify-items: center;
     max-width: 60%;
     width: 60%;
@@ -36,25 +36,25 @@ button{
 
 :host::ng-deep .product-link{
     grid-area: product-link;
-    color: black;
+    color: rgb(24, 24, 24);
     background-color: white;
     height: fit-content;
 }
 :host::ng-deep .product-link:active{
-    box-shadow: 3px 3px 10px black;
+    box-shadow: 3px 3px 10px rgb(24, 24, 24);
     background-color: #45ffba;
 }
 
-:host::ng-deep .product-remove{
-    grid-area: product-remove;
+:host::ng-deep .product-info{
+    grid-area: product-info;
     color: white;
-    background-color: #FF458A;
+    background: rgb(163,34,195);
+    background: linear-gradient(13deg, rgba(163,34,195,1) 0%, rgba(255,88,119,1) 48%, rgba(253,223,45,1) 100%);
     height: fit-content;
 }
-:host::ng-deep .product-remove:active{
-    box-shadow: 3px 3px 10px #292929;
-    background-color: white;
-    color: #FF458A;
+
+:host::ng-deep .product-info:active{
+    background: linear-gradient(13deg, rgba(163,34,195,0.5) 0%, rgba(255,88,119,0.5) 48%, rgba(253,223,45,0.5) 100%);
 }
 
 :host::ng-deep .product-price{ 

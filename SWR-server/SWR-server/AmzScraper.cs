@@ -19,7 +19,7 @@ namespace SWR_server
         [JsonProperty]
         public String productImg; //Url to product image.
         [JsonProperty]
-        public double price;
+        public double price = -1.0;
         [JsonProperty]
         public string name;
         [JsonProperty]
@@ -35,10 +35,16 @@ namespace SWR_server
         {
             //this.LoggingLevel = WebScraper.LogLevel.All; //Can be disabled      
             this.Request(this.url, Parse);
+
+            //Handle bad Url
+            if(this.price == -1.0)//Did not change after calling Request.
+            {
+                handleBadUrl();
+            }
         }
 
         public override void Parse(Response response)
-        { 
+        {
             HtmlNode productImgNode = response.GetElementById("landingImage");
             this.productImg = productImgNode.GetAttribute("src");
             this.isOnSale = 0;//Will be overwritten if is on sale.
@@ -60,8 +66,22 @@ namespace SWR_server
             this.price = Double.Parse(priceString);
 
             this.name = response.GetElementById("productTitle").InnerText.Replace("\n", "");
-            
-            this.parseComplete = true;          
+
+            this.parseComplete = true;
+                 
+        }
+
+        /// <summary>
+        /// Defines what this object will be if the url is bad. 
+        /// This code will change later.
+        /// </summary>
+        public void handleBadUrl()
+        {
+            this.name = "Product Not Found!";
+            this.productImg = "https://uboachan.net/warc/src/1340433133397.jpeg";
+            this.price = -1.00;
+            this.parseComplete = false;
+            Print("404 Error");
         }
 
         //Getters
@@ -79,6 +99,11 @@ namespace SWR_server
         {
             this.url = url;
             this.Start();
+        }
+
+        private static void Print(string s)
+        {
+            System.Diagnostics.Debug.WriteLine("DB OUTPUT: " + s);
         }
     }
 }
